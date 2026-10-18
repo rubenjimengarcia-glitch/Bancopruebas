@@ -19,12 +19,17 @@ Rubén decidió que se publique automáticamente: la puerta de calidad es el Ver
 2. **Investigador.** Crea `dossiers/<slug>.md` con `plantilla-dossier.md`. 4 a 6 modelos reales. Cada dato lleva su
    fuente (URL abierta de verdad, no un resultado de búsqueda). ASIN: búscalo en amazon.es con Chrome, comprueba que
    el título es el modelo exacto y apunta quién vende ese día. Datos de Crawlo: solo tiendas que no son Amazon.
+   Si Crawlo responde "API temporarily unavailable" o "fetch failed": reintenta una vez; si sigue, anota "sin datos
+   Crawlo" en el registro y continúa con ficha de fabricante y opiniones de compradores. No bloquees la guía por eso.
 3. **Redactor.** Crea `src/pages/<slug>.astro` copiando la estructura de `src/pages/taladro-percutor-bateria.astro`.
    Usa solo lo que está en el dossier. Enlaza desde `src/pages/index.astro` y desde guías relacionadas.
 4. **Verificador.** Lanza un sub-agente nuevo (herramienta Agent, contexto limpio) con la orden: leer
    `checklist-verificador.md`, el dossier y la página, y responder APROBADO o RECHAZADO con la lista de fallos. El
    Verificador no debe ver cómo se redactó. Si rechaza, el Redactor corrige y se repite, como máximo 2 rondas.
    Si el segundo intento también se rechaza: NO se publica; se registra el motivo y se avisa a Rubén.
+   **Afirmaciones generales sin fuente** (p. ej. "las baterías de litio se descargan menos si…"): o llevan fuente en el
+   dossier, o se borran. Nunca se dejan como "conocimiento común". Cuanto más corto el texto, más fácil de respaldar:
+   escribe solo lo que el dossier sostiene.
 5. **Publicador.** `npm ci` (si hace falta) y `npm run build`: debe compilar sin errores. Comprueba enlaces internos.
    Commit y push a `main` (Vercel publica solo). Mensaje de commit en español con la atribución que indique la sesión.
 6. **Registro.** Añade una línea a `registro.md` (fecha, guía, resultado, incidencias) y marca la guía como `publicada`
