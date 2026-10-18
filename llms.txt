@@ -1,0 +1,14 @@
+# Banco de Prueba
+
+> Guías y comparativas en español de herramientas eléctricas a batería para casa y jardín, organizadas por plataforma de batería de 18 V (Bosch verde y azul, Makita LXT, Einhell Power X-Change, Ryobi ONE+, DeWalt XR). Mercado: España.
+
+Cada página indica qué productos se han probado y cuáles se han analizado por ficha técnica. No se publican precios porque cambian a diario.
+
+## Guías
+
+- [Qué plataforma de batería de 18 V elegir](https://bancodeprueba.com/plataformas-bateria-18v/): cómo elegir sistema de batería en cuatro preguntas, tabla de las seis plataformas y preguntas frecuentes.
+
+## Sobre la web
+
+- [Cómo trabajamos](https://bancodeprueba.com/metodo/): criterios de análisis y política de pruebas.
+- [Aviso de afiliados](https://bancodeprueba.com/aviso-afiliados/): cómo se financia la web.

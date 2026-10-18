@@ -1,0 +1,81 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: '/plataformas-bateria-18v/', label: 'Elegir plataforma' },
+  { href: '/metodo/', label: 'Cómo trabajamos' },
+];
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="Banco de Prueba, inicio">
+      <svg class="vise" viewBox="0 0 40 24" aria-hidden="true">
+        <rect x="1" y="16" width="38" height="5" rx="1" />
+        <rect x="6" y="4" width="7" height="12" rx="1" />
+        <rect x="27" y="4" width="7" height="12" rx="1" />
+        <rect x="13" y="8" width="14" height="3" />
+      </svg>
+      <span>Banco de Prueba</span>
+    </a>
+    <nav aria-label="Principal">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={path.startsWith(l.href) ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--rule);
+    background: var(--zinc);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--graphite);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.35rem;
+    font-variation-settings: 'wdth' 62;
+    letter-spacing: 0.005em;
+  }
+  .vise {
+    width: 34px;
+    height: 20px;
+    fill: var(--graphite);
+  }
+  .vise rect:last-child {
+    fill: var(--chalk);
+  }
+  nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--graphite);
+    text-decoration: none;
+    font-size: var(--t-sm);
+    font-weight: 600;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover,
+  nav a[aria-current='page'] {
+    border-bottom-color: var(--chalk);
+  }
+</style>

@@ -1,0 +1,203 @@
+---
+import Base from '../layouts/Base.astro';
+import { platforms } from '../data/platforms';
+import { SITE, AMAZON_DISCLOSURE } from '../config';
+
+const updated = '2026-10-18';
+const updatedLabel = '18 de octubre de 2026';
+
+const faqs = [
+  {
+    q: '¿Puedo usar baterías de una marca en herramientas de otra?',
+    a: 'Oficialmente no, salvo dentro de alianzas como Power for All (Bosch verde y otras marcas de casa y jardín) o AMPShare (Bosch azul y otras marcas profesionales). Existen adaptadores de terceros, pero pueden anular la garantía y no siempre respetan las protecciones de la batería.',
+  },
+  {
+    q: '¿Cuántos amperios hora (Ah) necesito?',
+    a: 'Como orientación, 2 Ah bastan para atornillar y taladrar de forma ocasional, y conviene ir a 4 Ah o más para sierras, amoladoras y herramientas de jardín. Más Ah significa más autonomía, pero también más peso.',
+  },
+  {
+    q: '¿Todas las de 18 V son iguales de potentes?',
+    a: 'No. Los voltios indican la familia de batería, no la potencia final. La potencia depende del motor, de la electrónica y de la batería que montes. Por eso dos taladros de 18 V pueden rendir muy distinto.',
+  },
+  {
+    q: '¿Es seguro comprarlas en Amazon?',
+    a: 'Sí, si compruebas quién vende: Amazon o la tienda oficial de la marca. Así tienes la garantía del fabricante y reduces el riesgo de comprar baterías de imitación.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Qué plataforma de batería de 18 V elegir',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Qué plataforma de batería de 18 V elegir"
+  description="Bosch, Makita, Einhell, Ryobi o DeWalt: cómo elegir la plataforma de batería de 18 V que te conviene para casa y jardín, en cuatro preguntas."
+  jsonLd={jsonLd}
+>
+  <article class="wrap article">
+    <header class="head">
+      <h1>Qué plataforma de batería de 18&nbsp;V elegir</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Si ya tienes baterías de una marca, quédate en ella. Si empiezas de cero y es para casa y
+        jardín, Einhell o Bosch verde suelen ser la opción más equilibrada; si vas a hacer obra con
+        frecuencia, mira Makita, Bosch azul o DeWalt.
+      </p>
+    </header>
+
+    <div class="prose">
+      <h2>Por qué la plataforma importa más que la herramienta</h2>
+      <p>
+        La batería y el cargador son una parte importante del precio de un kit. Cuando ya los tienes,
+        cada herramienta siguiente puede comprarse sin batería, solo el cuerpo, y sale bastante más
+        barata.
+      </p>
+      <p>
+        Por eso la primera compra decide las siguientes: si eliges una marca que no tiene la
+        herramienta que vas a necesitar dentro de dos años, tendrás que empezar otra colección de
+        baterías.
+      </p>
+    </div>
+
+    <h2>Las seis plataformas que cubrimos</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Plataforma</th>
+            <th scope="col">Pensada para</th>
+            <th scope="col">Comparte batería con</th>
+            <th scope="col">En pocas palabras</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            platforms.map((p) => (
+              <tr id={p.slug}>
+                <th scope="row">
+                  {p.brand}
+                  <span class="sys">{p.system}</span>
+                </th>
+                <td>{p.profile}</td>
+                <td>{p.shares}</td>
+                <td>{p.summary}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>Cómo decidir en cuatro preguntas</h2>
+      <ol class="steps">
+        <li>
+          <strong>¿Ya tienes baterías de alguna marca?</strong> Quédate en ella salvo que no fabrique
+          la herramienta que necesitas. Cambiar sale caro.
+        </li>
+        <li>
+          <strong>¿Qué tres herramientas vas a necesitar en los próximos años?</strong> Apúntalas y
+          comprueba que la plataforma tiene las tres. Es el filtro que más opciones descarta.
+        </li>
+        <li>
+          <strong>¿La vas a usar también en el jardín?</strong> Entonces pesa más la gama de jardín:
+          Einhell, Ryobi y las marcas de Power for All son fuertes ahí.
+        </li>
+        <li>
+          <strong>¿Uso ocasional o frecuente?</strong> Para colgar estanterías y montar muebles basta
+          una gama doméstica. Si haces reformas o trabajas con ella, compensa una profesional.
+        </li>
+      </ol>
+
+      <h2>Errores frecuentes</h2>
+      <ul>
+        <li>
+          <strong>Comprar kits de marcas distintas</strong> porque cada uno estaba de oferta. Acabas
+          con dos cargadores y baterías que no intercambias.
+        </li>
+        <li>
+          <strong>Fijarse solo en los voltios.</strong> Todas estas plataformas son de 18&nbsp;V; lo que
+          cambia es el motor y la capacidad de la batería.
+        </li>
+        <li>
+          <strong>Pagar siempre por un motor sin escobillas.</strong> Es más eficiente y dura más, pero
+          para un uso de pocas veces al año no siempre compensa la diferencia de precio.
+        </li>
+      </ul>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en la información de los fabricantes y la iremos ampliando con pruebas
+        propias, que marcaremos como tales. No incluye precios porque cambian a diario. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .article {
+    padding-top: clamp(32px, 6vw, 72px);
+  }
+  .head {
+    max-width: 760px;
+    margin-bottom: 8px;
+  }
+  .head h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-variation-settings: 'wdth' 64;
+    line-height: 0.98;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .sys {
+    display: block;
+    font-weight: 400;
+    color: var(--steel);
+    font-variation-settings: 'wdth' 100;
+  }
+  tbody th {
+    border-bottom: 1px solid var(--rule);
+    min-width: 130px;
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+</style>

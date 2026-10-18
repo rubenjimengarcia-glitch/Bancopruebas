@@ -1,0 +1,56 @@
+---
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap grid">
+    <p class="about">
+      {SITE.name} explica qué herramienta a batería conviene para cada trabajo de casa y con qué
+      plataforma te compensa quedarte. {AMAZON_DISCLOSURE}
+    </p>
+    <nav aria-label="Información legal">
+      <a href="/aviso-afiliados/">Aviso de afiliados</a>
+      <a href="/aviso-legal/">Aviso legal</a>
+      <a href="/privacidad/">Privacidad y cookies</a>
+      <a href="/metodo/">Cómo trabajamos</a>
+    </nav>
+    <p class="meta">© {year} {SITE.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 96px;
+    border-top: 1px solid var(--rule);
+    padding: 40px 0 48px;
+    font-size: var(--t-sm);
+    color: var(--steel);
+  }
+  .grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+  .about {
+    max-width: 60ch;
+    margin: 0;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  nav a {
+    color: var(--graphite);
+  }
+  .meta {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

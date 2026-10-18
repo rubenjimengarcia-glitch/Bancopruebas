@@ -1,0 +1,31 @@
+---
+// Plantilla para páginas de texto: método, avisos legales.
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description, noindex } = Astro.props;
+---
+
+<Base title={title} description={description} noindex={noindex}>
+  <article class="wrap page">
+    <h1>{title}</h1>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .page {
+    padding-top: clamp(32px, 6vw, 72px);
+  }
+  .page h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-variation-settings: 'wdth' 64;
+    max-width: 18ch;
+  }
+</style>

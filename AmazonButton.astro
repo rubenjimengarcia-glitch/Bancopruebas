@@ -1,0 +1,33 @@
+---
+// Botón a Amazon.es. Nunca muestra precio: los precios de Amazon solo pueden
+// mostrarse si vienen de su API oficial, que se activa tras las 3 primeras ventas.
+import { amazonUrl } from '../config';
+
+interface Props {
+  asin?: string;
+  label?: string;
+}
+
+const { asin, label = 'Ver precio en Amazon' } = Astro.props;
+---
+
+{
+  asin ? (
+    <a class="btn" href={amazonUrl(asin)} rel="sponsored nofollow noopener" target="_blank">
+      {label}
+    </a>
+  ) : (
+    <span class="pending">Enlace pendiente de ASIN</span>
+  )
+}
+
+<style>
+  .pending {
+    display: inline-block;
+    font-size: var(--t-sm);
+    color: var(--steel);
+    border: 1px dashed var(--rule);
+    padding: 0.6em 1em;
+    border-radius: 4px;
+  }
+</style>

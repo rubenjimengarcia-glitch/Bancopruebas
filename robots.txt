@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /borradores/
+
+Sitemap: https://bancodeprueba.com/sitemap-index.xml

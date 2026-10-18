@@ -1,0 +1,157 @@
+---
+import { platforms } from '../data/platforms';
+const none = {
+  slug: 'ninguna',
+  brand: 'Todavía ninguna',
+  system: 'Empiezas de cero',
+  summary:
+    'Es el mejor momento para decidir: piensa qué tres herramientas vas a necesitar en los próximos años y elige la plataforma que las tenga todas. La guía te lleva paso a paso.',
+};
+const items = [...platforms, none];
+---
+
+<section class="board" aria-labelledby="board-q">
+  <p id="board-q" class="q">¿Ya tienes baterías de alguna marca?</p>
+  <div class="pegs" role="group" aria-labelledby="board-q">
+    {
+      items.map((p, i) => (
+        <button
+          type="button"
+          class="pack"
+          data-slug={p.slug}
+          aria-pressed={i === items.length - 1 ? 'true' : 'false'}
+          aria-controls="board-answer"
+        >
+          <span class="brand">{p.brand}</span>
+          <span class="sys">{p.system}</span>
+        </button>
+      ))
+    }
+  </div>
+  <div id="board-answer" class="answer" aria-live="polite">
+    {
+      items.map((p, i) => (
+        <div class="a" data-for={p.slug} hidden={i !== items.length - 1}>
+          <p>{p.summary}</p>
+        </div>
+      ))
+    }
+    <a class="go" href="/plataformas-bateria-18v/">Leer la guía para elegir plataforma</a>
+  </div>
+</section>
+
+<script>
+  const board = document.querySelector('.board');
+  if (board) {
+    const buttons = board.querySelectorAll<HTMLButtonElement>('.pack');
+    const answers = board.querySelectorAll<HTMLElement>('.a');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slug = btn.dataset.slug;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        answers.forEach((a) => (a.hidden = a.dataset.for !== slug));
+      });
+    });
+  }
+</script>
+
+<style>
+  .board {
+    --hole: 3px;
+    --pitch: 22px;
+    background-color: var(--sheet);
+    background-image: radial-gradient(circle, var(--peg) var(--hole), transparent calc(var(--hole) + 0.5px));
+    background-size: var(--pitch) var(--pitch);
+    background-position: 11px 11px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 22px;
+  }
+  .q {
+    display: inline-block;
+    background: var(--sheet);
+    font-weight: 700;
+    font-variation-settings: 'wdth' 85;
+    font-size: var(--t-md);
+    margin: 0 0 18px;
+    padding: 2px 6px 2px 0;
+  }
+  .pegs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 26px 14px;
+    padding-top: 10px;
+  }
+  .pack {
+    position: relative;
+    text-align: left;
+    font: inherit;
+    color: var(--graphite);
+    background: var(--zinc);
+    border: 1.5px solid var(--graphite);
+    border-radius: 5px 5px 8px 8px;
+    padding: 12px 12px 10px;
+    cursor: pointer;
+    min-height: 74px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+  /* El enganche del que cuelga cada batería */
+  .pack::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 30px;
+    height: 12px;
+    transform: translateX(-50%);
+    border: 1.5px solid var(--graphite);
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+    background: var(--zinc);
+  }
+  .pack .brand {
+    font-weight: 800;
+    font-variation-settings: 'wdth' 70;
+    font-size: 1.1rem;
+    line-height: 1.1;
+  }
+  .pack .sys {
+    font-size: 0.8rem;
+    color: var(--steel);
+    line-height: 1.25;
+  }
+  .pack:hover {
+    border-color: var(--chalk);
+  }
+  .pack[aria-pressed='true'] {
+    background: var(--chalk);
+    border-color: var(--chalk);
+    color: var(--chalk-ink);
+  }
+  .pack[aria-pressed='true']::before {
+    background: var(--chalk);
+    border-color: var(--chalk);
+  }
+  .pack[aria-pressed='true'] .sys {
+    color: var(--chalk-ink);
+    opacity: 0.85;
+  }
+  /* La balda inferior del tablero, donde aparece la respuesta */
+  .answer {
+    margin: 24px -22px -22px;
+    background: var(--sheet);
+    border-top: 2px solid var(--graphite);
+    border-radius: 0 0 6px 6px;
+    padding: 16px 22px 20px;
+  }
+  .answer p {
+    margin: 0 0 10px;
+    max-width: 58ch;
+  }
+  .go {
+    font-weight: 700;
+  }
+</style>

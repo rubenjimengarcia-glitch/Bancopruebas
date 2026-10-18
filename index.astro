@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+import PlatformPicker from '../components/PlatformPicker.astro';
+import { SITE } from '../config';
+
+const guides = [
+  {
+    href: '/plataformas-bateria-18v/',
+    title: 'Qué plataforma de batería de 18 V elegir',
+    text: 'La decisión que condiciona todas tus compras siguientes, explicada sin marca favorita.',
+    ready: true,
+  },
+  {
+    title: 'Taladro percutor a batería para casa',
+    text: 'Cuál comprar según si vas a colgar cuadros o a hacer agujeros en hormigón cada semana.',
+    ready: false,
+  },
+  {
+    title: 'Herramientas sin batería: cuándo compensan',
+    text: 'Cómo ahorrar comprando solo el cuerpo si ya tienes baterías y cargador de esa marca.',
+    ready: false,
+  },
+  {
+    title: 'Atornillador de impacto o taladro',
+    text: 'Qué hace cada uno, cuándo necesitas los dos y cuándo te basta con uno.',
+    ready: false,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  inLanguage: 'es-ES',
+  description: SITE.description,
+};
+---
+
+<Base title={SITE.name} jsonLd={jsonLd}>
+  <section class="hero wrap">
+    <div class="copy">
+      <h1>Elige una batería. Acierta con todo lo que compres después.</h1>
+      <p class="lede">
+        Guías y comparativas de herramientas eléctricas a batería para casa, ordenadas por
+        plataforma: Bosch, Makita, Einhell, Ryobi y DeWalt.
+      </p>
+    </div>
+    <PlatformPicker />
+  </section>
+
+  <section class="wrap start" aria-labelledby="start-h">
+    <h2 id="start-h">Por dónde empezar</h2>
+    <ul class="guides">
+      {
+        guides.map((g) => (
+          <li>
+            {g.ready ? (
+              <a href={g.href} class="g-title">{g.title}</a>
+            ) : (
+              <span class="g-title muted">{g.title}</span>
+            )}
+            <span class="g-text">{g.text}</span>
+            <span class="soon">{g.ready ? 'Publicada' : 'En preparación'}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="wrap how" aria-labelledby="how-h">
+    <h2 id="how-h">Cómo recomendamos</h2>
+    <div class="how-grid">
+      <p>
+        <strong>Sin marca favorita.</strong> Recomendamos por el trabajo que vas a hacer y por la batería
+        que ya tienes, no por quién paga más.
+      </p>
+      <p>
+        <strong>Decimos qué hemos probado.</strong> Cada comparativa indica qué herramientas hemos usado
+        nosotros y cuáles analizamos por ficha técnica y opiniones de compradores.
+      </p>
+      <p>
+        <strong>Sin precios caducados.</strong> Los precios cambian a diario; te llevamos a la tienda para
+        que veas el actual.
+      </p>
+    </div>
+    <p class="meta"><a href="/metodo/">Así trabajamos en detalle</a></p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: end;
+    padding-top: clamp(40px, 7vw, 88px);
+  }
+  .hero h1 {
+    font-size: var(--t-hero);
+    font-variation-settings: 'wdth' 62;
+    font-weight: 850;
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    max-width: 12ch;
+    margin-bottom: 0.4em;
+  }
+  .start,
+  .how {
+    margin-top: clamp(56px, 8vw, 96px);
+  }
+  .guides {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .guides li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) 9rem;
+    gap: 6px 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .g-title {
+    font-weight: 700;
+    font-size: var(--t-md);
+    font-variation-settings: 'wdth' 80;
+    line-height: 1.2;
+  }
+  .muted {
+    color: var(--graphite);
+  }
+  .g-text {
+    color: var(--steel);
+  }
+  .soon {
+    font-size: var(--t-sm);
+    color: var(--steel);
+    white-space: nowrap;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    max-width: 1000px;
+  }
+  .how-grid p {
+    margin: 0;
+  }
+  .how-grid strong {
+    display: block;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+    margin-bottom: 4px;
+  }
+  @media (max-width: 880px) {
+    .hero {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+    .guides li {
+      grid-template-columns: 1fr;
+    }
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

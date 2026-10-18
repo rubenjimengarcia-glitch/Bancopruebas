@@ -1,0 +1,222 @@
+---
+// PLANTILLA de comparativa. No se indexa ni sale en el sitemap.
+// Para publicar una comparativa real: copia este archivo a /src/pages/comparativas/<slug>.astro,
+// rellena `products` con modelos reales y ASIN, y quita `noindex`.
+import Base from '../../layouts/Base.astro';
+import AmazonButton from '../../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../../config';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin?: string;
+  tested: boolean;
+  why: string;
+  pros: string[];
+  cons: string[];
+  specs: { torque: string; weight: string; motor: string; kit: string };
+}
+
+const products: Product[] = [
+  {
+    award: 'La mejor para la mayoría',
+    name: 'Modelo pendiente A',
+    platform: 'Plataforma pendiente',
+    tested: false,
+    why: 'Una o dos frases sobre para quién es y por qué gana. Concreta: qué trabajo hace mejor que las demás.',
+    pros: ['Ventaja concreta 1', 'Ventaja concreta 2'],
+    cons: ['Inconveniente real 1'],
+    specs: { torque: '— Nm', weight: '— kg', motor: 'Sin escobillas', kit: 'Con 2 baterías' },
+  },
+  {
+    award: 'La más económica que merece la pena',
+    name: 'Modelo pendiente B',
+    platform: 'Plataforma pendiente',
+    tested: false,
+    why: 'Para quién es y qué sacrificas frente a la primera.',
+    pros: ['Ventaja concreta 1'],
+    cons: ['Inconveniente real 1', 'Inconveniente real 2'],
+    specs: { torque: '— Nm', weight: '— kg', motor: 'Con escobillas', kit: 'Solo cuerpo' },
+  },
+  {
+    award: 'Para hormigón y uso frecuente',
+    name: 'Modelo pendiente C',
+    platform: 'Plataforma pendiente',
+    tested: false,
+    why: 'Para quién es y por qué compensa pagar más.',
+    pros: ['Ventaja concreta 1', 'Ventaja concreta 2'],
+    cons: ['Inconveniente real 1'],
+    specs: { torque: '— Nm', weight: '— kg', motor: 'Sin escobillas', kit: 'Con 1 batería' },
+  },
+];
+
+const updatedLabel = '[fecha]';
+---
+
+<Base title="Plantilla de comparativa" noindex>
+  <div class="wrap draft-banner" role="note">
+    Borrador interno: plantilla sin productos reales. No está enlazada ni se indexa.
+  </div>
+
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>El mejor taladro percutor a batería para casa</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el {updatedLabel}.</p>
+      <p class="lede">
+        Respuesta en una frase: el modelo que recomendamos para la mayoría y por qué, y cuándo elegir
+        otro.
+      </p>
+    </header>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Plataforma</th>
+            <th scope="col">Par máx.</th>
+            <th scope="col">Peso con batería</th>
+            <th scope="col">Motor</th>
+            <th scope="col">Qué incluye</th>
+            <th scope="col">Probado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.platform}</td>
+                <td>{p.specs.torque}</td>
+                <td>{p.specs.weight}</td>
+                <td>{p.specs.motor}</td>
+                <td>{p.specs.kit}</td>
+                <td>{p.tested ? 'Sí' : 'No, analizado'}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <h2>
+            {p.award}: {p.name}
+          </h2>
+          <p class="meta">
+            {p.platform}. {p.tested ? 'Probado por nosotros.' : 'Analizado por ficha técnica y opiniones.'}
+          </p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <AmazonButton asin={p.asin} />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo elegir</h2>
+      <p>Tres o cuatro criterios concretos para este tipo de herramienta, con su porqué.</p>
+      <h2>Preguntas frecuentes</h2>
+      <h3>Pregunta real que hace la gente</h3>
+      <p>Respuesta directa en dos o tres frases.</p>
+      <p class="note">{AMAZON_DISCLOSURE}</p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .draft-banner {
+    margin-top: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: var(--sheet);
+    border: 1px dashed var(--chalk);
+    border-radius: 4px;
+    font-size: var(--t-sm);
+    max-width: 1160px;
+  }
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-variation-settings: 'wdth' 64;
+    line-height: 0.98;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
