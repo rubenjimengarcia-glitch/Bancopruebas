@@ -15,9 +15,9 @@ export const AMAZON_TAG = '';
 
 // Datos del titular para el aviso legal (LSSI). Pendientes de rellenar.
 export const OWNER = {
-  name: '[Nombre y apellidos del titular]',
-  nif: '[NIF]',
-  address: '[Dirección completa]',
+  name: 'Rubén Jiménez',
+  nif: '05674683P',
+  address: '45005 Toledo, España',
   email: '[email de contacto]',
 };
 
