@@ -41,7 +41,7 @@ No revisadas en este ciclo. No se citan en la página.
 
 ## Datos no confirmados (NO publicar)
 - Motor del Ryobi R18ID2-0.
-- Longitud de Einhell y Ryobi; peso y longitud de otros no contrastados con segunda fuente.
+- Longitud de Einhell y Ryobi. Los pesos de Bosch, Einhell, Ryobi y DeWalt tienen una sola ficha (URL arriba) y se publican con la reserva "según las fichas"; el de Makita tiene dos.
 - Qué marca de batería es compatible con qué (remitir a la guía de plataformas).
 
 ## Fuentes abiertas
@@ -59,5 +59,5 @@ No revisadas en este ciclo. No se citan en la página.
 ## Correcciones de la ronda 1 del Verificador
 Eliminadas afirmaciones sin fuente (extensión de plataforma LXT, compatibilidad de baterías, efecto de PrecisionDrive); añadido "Para quién NO es"; pesos con la reserva "según las fichas".
 
-## Estado: NO PUBLICADA (2026-10-18)
-Rechazada por el Verificador en 2 rondas. Pendientes (ronda 2): (1) "DeWalt XR" sin fuente; (2) compatibilidad de baterías Ryobi ONE+ sin fuente; (3) "cabezal corto" sin dato comparativo; (4) "pagas por ello" insinúa precio; (5) afirmaciones generales sin fuente (mandril, "lo habitual es empezar por el taladro", garantía según vendedor, par entre herramientas). Borrador en agentes/borradores/atornillador-impacto-o-taladro.astro.txt (fuera de src, no se despliega).
+## Estado: PUBLICADA (2026-10-18)
+Ejecución piloto: 1.ª ejecución rechazada tras 2 rondas; 2.ª ejecución, APROBADA en la 2.ª ronda tras corregir: plataforma DeWalt sin fuente, compatibilidad de baterías, adjetivos comparativos sin dato, insinuaciones de precio, afirmaciones generales sin fuente y recomendación sobre vendedor.

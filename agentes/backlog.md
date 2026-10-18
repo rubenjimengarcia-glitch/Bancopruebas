@@ -6,7 +6,7 @@ Estados: `pendiente`, `publicada`, `bloqueada`. Una guía por ejecución, en est
 |---|------|---------------------|--------|
 | 0 | plataformas-bateria-18v | Qué plataforma de batería de 18 V elegir | publicada |
 | 0 | taladro-percutor-bateria | Mejor taladro percutor a batería para casa | publicada |
-| 1 | atornillador-impacto-o-taladro | Atornillador de impacto o taladro: cuál necesito | pendiente |
+| 1 | atornillador-impacto-o-taladro | Atornillador de impacto o taladro: cuál necesito | publicada |
 | 2 | regalos-bricolaje-navidad | Regalos para quien le gusta el bricolaje (Navidad) | pendiente |
 | 3 | herramientas-sin-bateria | Herramientas sin batería: cuándo compensan | pendiente |
 | 4 | kit-combo-herramientas-bateria | Kit combo de herramientas a batería: cuáles valen la pena | pendiente |
