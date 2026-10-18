@@ -18,7 +18,7 @@ export const OWNER = {
   name: 'Rubén Jiménez García',
   nif: '05674683P',
   address: 'Autillo 2, 45005 Toledo, España',
-  email: '[email de contacto]',
+  email: 'hola@bancodeprueba.com',
 };
 
 export function amazonUrl(asin: string): string {
