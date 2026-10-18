@@ -1,0 +1,424 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-10-18';
+const updatedLabel = '18 de octubre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  kitLabel: string;
+  tested: boolean;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  specs: { torque: string; motor: string; weight: string; kit: string };
+}
+
+// Datos tomados de fichas de fabricante, tiendas y anuncios de Amazon.es el 18/10/2026
+// (ver agentes/dossiers/atornillador-impacto-o-taladro.md). Ninguno está probado por nosotros.
+const products: Product[] = [
+  {
+    award: 'El de más par de la comparativa',
+    name: 'Einhell TP-CI 18/250-C Li BL',
+    platform: 'Einhell Power X-Change',
+    asin: 'B0F9FLHC1N',
+    kitLabel: 'Solo cuerpo, sin batería ni cargador',
+    tested: false,
+    why: 'Llega a 250 Nm en su tercera marcha, con 90 Nm en la primera y 150 Nm en la segunda. Tiene sentido si ya usas baterías Power X-Change o quieres empezar por esa plataforma.',
+    pros: [
+      'Motor sin escobillas y 250 Nm de par máximo',
+      'Tres marchas, con 90, 150 y 250 Nm de par máximo',
+      '0,95 kg sin batería',
+    ],
+    cons: [
+      'Se vende solo cuerpo: necesitas comprar batería y cargador aparte',
+      'Es la opción de más par: si no lo necesitas, pagas por ello',
+    ],
+    notFor: 'No es para ti si ya tienes baterías de otra marca y no quieres cambiar de plataforma.',
+    specs: { torque: '250 Nm', motor: 'Sin escobillas', weight: '0,95 kg', kit: 'Solo cuerpo' },
+  },
+  {
+    award: 'Para entrar en la plataforma DeWalt',
+    name: 'DeWalt DCF887N',
+    platform: 'DeWalt XR',
+    asin: 'B01D4J5JMC',
+    kitLabel: 'Solo cuerpo, sin batería ni cargador',
+    tested: false,
+    why: 'Sin escobillas, 205 Nm y tres marchas, entre ellas el modo PrecisionDrive que menciona el anuncio. Tiene sentido si quieres entrar en la plataforma DeWalt o ya estás en ella.',
+    pros: [
+      'Motor sin escobillas y 205 Nm de par máximo',
+      'Incluye el modo PrecisionDrive',
+      '0,94 kg sin batería',
+    ],
+    cons: [
+      'Se vende solo cuerpo: batería y cargador, aparte',
+      'Con 205 Nm tiene más par que el Bosch, el Ryobi y el Makita: si no lo necesitas, pagas por ello',
+    ],
+    notFor: 'No es para ti si ya tienes baterías de otra marca y no quieres cambiar de plataforma.',
+    specs: { torque: '205 Nm', motor: 'Sin escobillas', weight: '0,94 kg', kit: 'Solo cuerpo' },
+  },
+  {
+    award: 'Cabezal corto y sin escobillas',
+    name: 'Bosch Professional GDR 18V-200',
+    platform: 'Bosch Professional 18V System',
+    asin: 'B093TFWHHM',
+    kitLabel: 'Solo herramienta, en caja de cartón',
+    tested: false,
+    why: 'Motor sin escobillas, 200 Nm y un cabezal de solo 126 mm, útil para trabajar en espacios estrechos. Es la opción para quien ya usa Bosch Professional 18V System o va a entrar en ella.',
+    pros: [
+      'Motor sin escobillas y 200 Nm de par máximo',
+      'Cabezal de 126 mm para sitios con poco espacio',
+      'Velocidad variable con el gatillo',
+    ],
+    cons: [
+      'Se vende en caja de cartón, solo la herramienta: batería y cargador, aparte',
+      'Pesa 1,1 kg sin batería, más que Makita, DeWalt y Einhell según sus fichas',
+    ],
+    notFor: 'No es para ti si lo que más te importa es el peso: es más pesado que Makita, DeWalt y Einhell.',
+    specs: { torque: '200 Nm', motor: 'Sin escobillas', weight: '1,1 kg', kit: 'Solo herramienta' },
+  },
+  {
+    award: 'El más ligero de la comparativa',
+    name: 'Makita DTD153Z',
+    platform: 'Makita LXT',
+    asin: 'B01LQUIGL2',
+    kitLabel: 'Solo cuerpo, sin batería ni cargador',
+    tested: false,
+    why: 'Con 0,9 kg sin batería es el más ligero de los cinco, tiene motor sin escobillas, 170 Nm y un cabezal de 126 mm. Tiene sentido si ya usas baterías Makita LXT o quieres entrar en esa plataforma.',
+    pros: [
+      'Motor sin escobillas y 0,9 kg sin batería',
+      'Cabezal de 126 mm',
+      'Peso y tamaño contenidos para trabajar en sitios estrechos',
+    ],
+    cons: [
+      'Es el de menos par de la comparativa (170 Nm)',
+      'Se vende sin batería: comprueba en el manual qué baterías admite',
+      'El título del anuncio de Amazon es confuso: comprueba que pone DTD153Z antes de comprar',
+    ],
+    notFor: 'No es para ti si necesitas el máximo par: es el de menos de la comparativa.',
+    specs: { torque: '170 Nm', motor: 'Sin escobillas', weight: '0,9 kg', kit: 'Solo cuerpo' },
+  },
+  {
+    award: 'Para quien ya está en ONE+',
+    name: 'Ryobi R18ID2-0',
+    platform: 'Ryobi ONE+',
+    asin: 'B084XWQC4W',
+    kitLabel: 'Solo cuerpo, sin batería ni cargador',
+    tested: false,
+    why: 'Ofrece 200 Nm y velocidad variable, y usa las baterías de la gama ONE+. Tiene sentido si ya tienes baterías ONE+ y solo necesitas la herramienta.',
+    pros: [
+      '200 Nm de par máximo',
+      'Gatillo de velocidad variable',
+      'Comparte batería con el resto de la gama ONE+',
+    ],
+    cons: [
+      'Se vende solo cuerpo: batería y cargador, aparte',
+      'Pesa 1,2 kg sin batería, más que los otros cuatro según sus fichas',
+      'No hemos podido confirmar qué tipo de motor lleva, y por eso no lo indicamos',
+    ],
+    notFor: 'No es para ti si necesitas saber qué tipo de motor lleva antes de comprar, o si priorizas el peso.',
+    specs: { torque: '200 Nm', motor: 'No confirmado', weight: '1,2 kg', kit: 'Solo cuerpo' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Atornillador de impacto o taladro: cuál compro si solo puedo tener uno?',
+    a: 'Si vas a hacer agujeros en la pared, un taladro percutor: el atornillador de impacto no lleva mandril, solo portapuntas hexagonal de 1/4". Si lo que más haces es atornillar tornillos largos, el de impacto es la herramienta pensada para eso. Lo habitual es que en casa empieces por el taladro.',
+  },
+  {
+    q: '¿Se puede taladrar con un atornillador de impacto?',
+    a: 'No es su uso previsto. Consulta el manual del fabricante para saber qué brocas y accesorios admite cada modelo. Para agujeros en pared, usa un taladro.',
+  },
+  {
+    q: '¿Sirve la misma batería para el taladro y el atornillador de impacto?',
+    a: 'Sí, si los dos son de la misma plataforma. Por eso conviene elegir primero la plataforma: lo explicamos en la guía de plataformas de batería de 18 V.',
+  },
+  {
+    q: '¿Los Nm de un atornillador de impacto se pueden comparar con los de un taladro?',
+    a: 'No conviene. Compara los Nm solo entre atornilladores de impacto; un taladro indica otro tipo de par.',
+  },
+  {
+    q: '¿Compro el kit o solo el cuerpo?',
+    a: 'Según las fichas que hemos consultado, los cinco se venden como herramienta sola, sin batería ni cargador: confirma en el anuncio qué incluye antes de comprar. Si ya tienes baterías de esa marca, es lo que buscas. Si no, tendrás que añadir batería y cargador: mira antes la guía de plataformas.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Atornillador de impacto o taladro: cuál necesitas y qué modelos mirar',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Atornillador de impacto o taladro: cuál necesitas"
+  description="Qué hace un atornillador de impacto frente a un taladro, cuándo necesitas los dos y 5 modelos de 18 V comparados: Einhell, DeWalt, Bosch, Makita y Ryobi."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Atornillador de impacto o taladro: cuál necesitas</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Si solo vas a comprar una herramienta y harás agujeros en la pared, empieza por un taladro
+        percutor. El atornillador de impacto es el segundo paso: tiene sentido cuando atornillas
+        mucho o tornillos largos. Si ya tienes taladro, elige el atornillador de la misma
+        plataforma de batería.
+      </p>
+    </header>
+
+    <p class="note">
+      Cómo hemos hecho esta comparativa: los datos salen de las fichas de los fabricantes, de
+      tiendas y de los anuncios de Amazon.es, y ninguno de estos cinco modelos lo hemos probado
+      todavía. Cuando lo hagamos, lo indicaremos aquí. <a href="/metodo/">Así trabajamos</a>.
+    </p>
+
+    <div class="prose">
+      <h2>Qué hace cada uno</h2>
+      <p>
+        Un <strong>taladro</strong> lleva mandril: admite brocas de distintos grosores y, si es
+        percutor, puede trabajar en pared. Lo comparamos en la
+        <a href="/taladro-percutor-bateria/">guía de taladros percutores a batería</a>.
+      </p>
+      <p>
+        Un <strong>atornillador de impacto</strong> lleva un portapuntas hexagonal de 1/4" en
+        lugar de mandril, y está pensado para atornillar. Los cinco modelos de esta guía tienen ese
+        portapuntas.
+      </p>
+      <p>
+        <strong>Los necesitas los dos</strong> si montas, atornillas y taladras a menudo. Si ya
+        tienes uno, el segundo compensa más en versión solo cuerpo, si es de la misma plataforma de
+        batería. Antes de decidir, mira la
+        <a href="/plataformas-bateria-18v/">guía de plataformas de batería de 18 V</a>.
+      </p>
+    </div>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Plataforma</th>
+            <th scope="col">Par máx.</th>
+            <th scope="col">Motor</th>
+            <th scope="col">Peso sin batería</th>
+            <th scope="col">Qué incluye</th>
+            <th scope="col">Probado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.platform}</td>
+                <td>{p.specs.torque}</td>
+                <td>{p.specs.motor}</td>
+                <td>{p.specs.weight}</td>
+                <td>{p.specs.kit}</td>
+                <td>{p.tested ? 'Sí' : 'No, analizado'}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">
+      Par máximo y peso según las fichas de Bosch Professional y de Einhell, y de las tiendas
+      Toolbrothers, Klium, Screwfix y Tooriistamaailm. El
+      motor del Ryobi aparece como no confirmado porque ninguna fuente que hemos abierto lo indica.
+    </p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <h2>
+            {p.award}: {p.name}
+          </h2>
+          <p class="meta">
+            {p.platform}. {p.tested ? 'Probado por nosotros.' : 'Analizado por ficha técnica y anuncio de Amazon.'}
+            {' '}Versión enlazada: {p.kitLabel}.
+          </p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo elegir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Empieza por la batería.</strong> Según las fichas, los cinco se venden como herramienta
+          sola: necesitas baterías y cargador de la misma plataforma. Si no tienes, la
+          <a href="/plataformas-bateria-18v/">guía de plataformas de batería de 18 V</a> te ayuda a
+          elegir.
+        </li>
+        <li>
+          <strong>Decide si ya tienes taladro.</strong> Si no, empieza por el
+          <a href="/taladro-percutor-bateria/">taladro percutor</a> y deja el atornillador de
+          impacto para después.
+        </li>
+        <li>
+          <strong>No te dejes llevar solo por los Nm.</strong> Los cinco modelos están entre 170 y
+          250 Nm. Mira también el peso y el tamaño del cabezal si vas a trabajar en sitios
+          estrechos.
+        </li>
+        <li>
+          <strong>Comprueba qué puntas admite.</strong> Consulta el manual del fabricante antes de
+          usar accesorios que no sean los que recomienda.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto: lo ideal es Amazon o la
+        tienda oficial de la marca, para tener la garantía del fabricante. El vendedor puede cambiar
+        de un día para otro y no podemos asegurar cuál será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta comparativa se basa en las fichas de los fabricantes, en tiendas y en los anuncios de
+        Amazon.es a fecha de {updatedLabel}. No incluye precios porque cambian a diario. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-variation-settings: 'wdth' 64;
+    line-height: 0.98;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
