@@ -1,0 +1,365 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-10-26';
+const updatedLabel = '26 de octubre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  kitLabel: string;
+  tested: boolean;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  specs: { motor: string; batteries: string; chuck: string };
+}
+
+// Datos tomados de los anuncios de Amazon.es abiertos el 26/10/2026
+// (ver agentes/dossiers/regalos-bricolaje-navidad.md). Ninguno está probado por nosotros.
+const products: Product[] = [
+  {
+    award: 'Kit con maletín y dos baterías',
+    name: 'Bosch UniversalImpact 18V-60',
+    platform: 'Bosch 18 V',
+    asin: 'B09MTPGVBH',
+    kitLabel: '2 baterías de 2,0 Ah, cargador AL 18V-20 y maletín',
+    tested: false,
+    why: 'El anuncio lo describe con motor sin escobillas y portabrocas metálico de 13 mm, y el kit trae dos baterías, cargador y maletín. Es un regalo que se puede usar al abrir la caja.',
+    pros: [
+      'Incluye dos baterías, cargador y maletín',
+      'Motor sin escobillas según el anuncio',
+      'Portabrocas metálico de 13 mm',
+    ],
+    cons: [
+      'Las dos baterías son de 2,0 Ah',
+      'Amazon ofrece también unidades de segunda mano de este ASIN: elige la opción de nuevo',
+    ],
+    notFor: 'No es para ti si la persona ya tiene baterías de otra marca y prefiere seguir con ellas.',
+    specs: { motor: 'Sin escobillas', batteries: '2 × 2,0 Ah', chuck: '13 mm' },
+  },
+  {
+    award: 'Kit con una batería de 2,0 Ah y otra de 4,0 Ah',
+    name: 'Ryobi R18PD3-242S',
+    platform: 'Ryobi ONE+ 18 V',
+    asin: 'B07Q2FKR6X',
+    kitLabel: 'Baterías de 2,0 y 4,0 Ah, cargador y bolsa',
+    tested: false,
+    why: 'El título del anuncio indica 50 Nm, mandril de 13 mm, 24 ajustes de par y un kit con dos baterías de distinta capacidad, cargador y bolsa.',
+    pros: [
+      'Incluye dos baterías (2,0 y 4,0 Ah), cargador y bolsa',
+      '24 ajustes de par',
+      'Mandril de 13 mm',
+    ],
+    cons: [
+      'No hemos podido confirmar qué tipo de motor lleva, y por eso no lo indicamos',
+      'Se entrega con bolsa, no con maletín rígido',
+    ],
+    notFor: 'No es para ti si necesitas saber el tipo de motor antes de comprar.',
+    specs: { motor: 'No confirmado', batteries: '2,0 Ah + 4,0 Ah', chuck: '13 mm' },
+  },
+  {
+    award: 'Kit con batería de 3 Ah y carcasa de 199 mm',
+    name: 'Makita DHP484RFJ',
+    platform: 'Makita 18 V',
+    asin: 'B0CD1279QD',
+    kitLabel: 'Con batería de 3 Ah según el título del anuncio',
+    tested: false,
+    why: 'El anuncio habla de motor sin escobillas, transmisión metálica de dos velocidades, 199 mm de longitud de carcasa e indicador de capacidad de batería.',
+    pros: [
+      'Motor sin escobillas según el anuncio',
+      'Carcasa de 199 mm de longitud',
+      'Indicador de capacidad de batería',
+    ],
+    cons: [
+      'El anuncio no detalla cuántas baterías ni qué cargador trae el kit: compruébalo antes de comprar',
+      'El 26/10/2026 lo vendía un vendedor externo, no Amazon',
+    ],
+    notFor: 'No es para ti si necesitas tener claro el contenido exacto del kit antes de comprar.',
+    specs: { motor: 'Sin escobillas', batteries: '3 Ah (según el título)', chuck: 'No indicado' },
+  },
+  {
+    award: 'Kit con maletín TSTAK y control de par',
+    name: 'DeWalt DCD796D2',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B01BU0GH5U',
+    kitLabel: '2 baterías de 2,0 Ah, cargador multivoltaje y maletín TSTAK',
+    tested: false,
+    why: 'El anuncio indica motor brushless, 15 posiciones de par, luz LED en la base y transmisión metálica de dos velocidades. El kit trae dos baterías, cargador y maletín.',
+    pros: [
+      'Incluye dos baterías, cargador multivoltaje y maletín TSTAK',
+      'Control de par en 15 posiciones',
+      'Luz LED en la base',
+    ],
+    cons: [
+      'Las dos baterías son de 2,0 Ah',
+      'El 26/10/2026 lo vendía un vendedor externo, no Amazon',
+    ],
+    notFor: 'No es para ti si la persona ya tiene baterías de otra marca y prefiere seguir con ellas.',
+    specs: { motor: 'Sin escobillas', batteries: '2 × 2,0 Ah', chuck: 'No indicado' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Por qué un kit y no solo la herramienta?',
+    a: 'Porque los kits de esta guía traen batería y cargador según sus anuncios (confirma el contenido del Makita antes de comprar). Así el regalo sirve desde el primer día aunque la persona no tenga baterías de esa marca.',
+  },
+  {
+    q: '¿Y si la persona ya tiene herramientas a batería?',
+    a: 'Averigua qué marca usa antes de comprar. Si ya tiene baterías de una marca, mira la guía de plataformas de batería de 18 V.',
+  },
+  {
+    q: '¿Qué incluye cada kit?',
+    a: 'Bosch y DeWalt: dos baterías de 2,0 Ah, cargador y maletín. Ryobi: baterías de 2,0 y 4,0 Ah, cargador y bolsa. Makita: batería de 3 Ah según el título; comprueba el resto en el anuncio.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Regalos de bricolaje para Navidad: 4 taladros a batería en kit',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Regalos de bricolaje para Navidad: taladros a batería en kit"
+  description="Cuatro taladros percutores a batería en kit para regalar a quien le gusta el bricolaje: Bosch, Ryobi, Makita y DeWalt, analizados por ficha y anuncio."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Regalos de bricolaje para Navidad: taladros a batería en kit</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Si no sabes qué baterías tiene la persona, un kit que trae batería y cargador evita el
+        problema. Esta guía reúne cuatro taladros percutores en kit. Antes de comprar, averigua si
+        ya usa una marca.
+      </p>
+    </header>
+
+    <p class="note">
+      Cómo hemos hecho esta guía: los datos salen de los anuncios de Amazon.es abiertos el
+      {updatedLabel}, y ninguno de estos cuatro modelos está probado por nosotros.
+      <a href="/metodo/">Así trabajamos</a>.
+    </p>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Plataforma</th>
+            <th scope="col">Motor</th>
+            <th scope="col">Baterías</th>
+            <th scope="col">Mandril</th>
+            <th scope="col">Probado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.platform}</td>
+                <td>{p.specs.motor}</td>
+                <td>{p.specs.batteries}</td>
+                <td>{p.specs.chuck}</td>
+                <td>{p.tested ? 'Sí' : 'No, analizado'}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">
+      Datos según los anuncios de Amazon.es del {updatedLabel}. El motor del Ryobi aparece como no
+      confirmado porque su anuncio no lo indica.
+    </p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <h2>
+            {p.award}: {p.name}
+          </h2>
+          <p class="meta">
+            {p.platform}. {p.tested ? 'Probado por nosotros.' : 'Analizado por anuncio de Amazon.'}
+            {' '}Versión enlazada: {p.kitLabel}.
+          </p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo elegir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Averigua si ya tiene baterías.</strong> Si usa una marca, la
+          <a href="/plataformas-bateria-18v/">guía de plataformas de batería de 18 V</a> te ayuda a
+          decidir. Si no tiene ninguna, un kit evita
+          comprar la batería aparte.
+        </li>
+        <li>
+          <strong>Mira qué incluye el kit.</strong> Compara baterías, cargador y maletín o bolsa en
+          el anuncio.
+        </li>
+        <li>
+          <strong>Si busca otra herramienta,</strong> mira el
+          <a href="/atornillador-impacto-o-taladro/">atornillador de impacto o taladro</a> y el
+          <a href="/taladro-percutor-bateria/">taladro percutor</a>.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto, y que eliges la opción de
+        producto nuevo. El vendedor puede cambiar de un día para otro y no podemos asegurar cuál
+        será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en los anuncios de Amazon.es a fecha de {updatedLabel}. No incluye
+        precios porque cambian a diario. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-variation-settings: 'wdth' 64;
+    line-height: 0.98;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
