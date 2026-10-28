@@ -17,6 +17,7 @@ interface Product {
   pros: string[];
   cons: string[];
   notFor: string;
+  img?: { src: string; alt: string; credit: string };
   specs: { par: string; motor: string; chuck: string; entrega: string };
 }
 
@@ -28,6 +29,7 @@ const products: Product[] = [
     name: 'DeWalt DCD796NT-XJ',
     platform: 'DeWalt 18 V XR',
     asin: 'B01C6PNSR8',
+    img: { src: '/img/dewalt-dcd796nt.webp', alt: 'DeWalt DCD796NT-XJ, taladro percutor sin escobillas XR 18 V', credit: 'DeWalt' },
     kitLabel: 'Solo herramienta con maletín TSTAK; no incluye batería ni cargador',
     tested: false,
     why: 'El título del anuncio indica 70 Nm, motor sin escobillas y maletín TSTAK, y dice expresamente que no incluye batería ni cargador. El anuncio menciona también luz de trabajo LED.',
@@ -44,6 +46,7 @@ const products: Product[] = [
     name: 'Ryobi RPD18BL1-0',
     platform: 'Ryobi ONE+ 18 V',
     asin: 'B0CRZ36DSL',
+    img: { src: '/img/ryobi-rpd18bl1-0.jpg', alt: 'Ryobi RPD18BL1-0, taladro percutor 18 V ONE+ sin batería', credit: 'Ryobi' },
     kitLabel: 'Solo herramienta en bolsa de transporte; sin batería',
     tested: false,
     why: 'El anuncio indica 54 Nm, portabrocas metálico de 13 mm, motor sin escobillas y 24 ajustes de par. Se entrega en bolsa, sin batería. El anuncio dice que la batería ONE+ sirve para más de 200 herramientas.',
@@ -78,6 +81,7 @@ const products: Product[] = [
     name: 'Bosch Professional GSB 18V-55',
     platform: 'Bosch 18 V',
     asin: 'B0822295DF',
+    img: { src: '/img/bosch-gsb-18v-55.png', alt: 'Bosch Professional GSB 18V-55, taladro con percusión a batería', credit: 'Bosch Professional' },
     kitLabel: 'El anuncio indica "caja de cartón" como contenido; confirma que no incluye batería',
     tested: false,
     why: 'El anuncio indica 55 Nm y 1.800 rpm, portabrocas metálico Röhm de 13 mm y motor sin escobillas. Como contenido solo menciona una caja de cartón.',
@@ -196,11 +200,21 @@ const jsonLd = [
         <section class="pick">
           <p class="kicker">{p.award}</p>
           <h2 class="pick-title">{p.name}</h2>
-          <p class="meta">
-            {p.platform}. Versión enlazada: {p.kitLabel}.
-          </p>
-          <div class="prose">
-            <p>{p.why}</p>
+          <div class={p.img ? 'pick-top has-img' : 'pick-top'}>
+            <div>
+              <p class="meta">
+                {p.platform}. Versión enlazada: {p.kitLabel}.
+              </p>
+              <div class="prose">
+                <p>{p.why}</p>
+              </div>
+            </div>
+            {p.img && (
+              <figure class="shot">
+                <img src={p.img.src} alt={p.img.alt} loading="lazy" width="320" height="320" />
+                <figcaption>Imagen: {p.img.credit}</figcaption>
+              </figure>
+            )}
           </div>
           <div class="pc">
             <div>
@@ -264,6 +278,38 @@ const jsonLd = [
 </Base>
 
 <style>
+  .pick-top.has-img {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 24px;
+    align-items: start;
+  }
+  .shot {
+    margin: 0;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .shot figcaption {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: var(--steel);
+  }
+  @media (max-width: 720px) {
+    .pick-top.has-img {
+      grid-template-columns: 1fr;
+    }
+    .shot {
+      max-width: 280px;
+    }
+  }
   .cmp {
     padding-top: clamp(32px, 6vw, 64px);
   }

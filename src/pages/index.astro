@@ -18,6 +18,7 @@ const guides = [
   },
   {
     href: '/herramientas-sin-bateria/',
+    img: { src: '/img/ryobi-rpd18bl1-0.jpg', alt: 'Taladro Ryobi RPD18BL1-0 sin batería' },
     title: 'Herramientas sin batería: cuándo compensan',
     text: 'Qué significa comprar solo el cuerpo y cuatro taladros a batería sin batería incluida, según anuncio, para quien ya tiene baterías y cargador.',
     ready: true,
@@ -70,6 +71,7 @@ const jsonLd = {
       {
         guides.map((g, i) => (
           <li class={g.ready ? 'card' : 'card soon'}>
+            {g.img && <img class="thumb" src={g.img.src} alt={g.img.alt} loading="lazy" width="96" height="96" />}
             <span class="num">{String(i + 1).padStart(2, '0')}</span>
             <h3>{g.ready ? <a href={g.href}>{g.title}</a> : g.title}</h3>
             <p>{g.text}</p>
@@ -198,6 +200,14 @@ const jsonLd = {
     margin: 0;
     color: var(--steel);
     font-size: var(--t-sm);
+  }
+  .thumb {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
   }
   .num {
     font-weight: 900;
