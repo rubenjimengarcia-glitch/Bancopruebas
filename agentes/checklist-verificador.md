@@ -4,7 +4,7 @@ Responde APROBADO solo si TODO se cumple. Si no, RECHAZADO con la lista numerada
 
 - [ ] Cada cifra de la página (par, peso, medidas, capacidades) aparece en el dossier con URL.
 - [ ] Ninguna frase afirma pruebas propias, uso real ni experiencia con el producto.
-- [ ] Columna "Probado" correcta y coherente con el texto de cada modelo.
+- [ ] La página no usa "probado" ni "hemos probado" (no hay pruebas propias); no hay columna "Probado".
 - [ ] No hay precios, estrellas, número de reseñas ni citas de reseñas de Amazon.
 - [ ] Cada botón lleva un ASIN que figura en el dossier como verificado hoy, y el modelo coincide con el ASIN.
 - [ ] El texto no promete "mejor precio", "oferta" ni disponibilidad.

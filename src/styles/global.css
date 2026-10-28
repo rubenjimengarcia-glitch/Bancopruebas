@@ -35,6 +35,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -62,11 +63,6 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
-.site-header :focus-visible,
-.band :focus-visible {
-  outline-color: #ffffff;
-}
-
 :focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
@@ -76,29 +72,58 @@ a:hover {
 h1,
 h2,
 h3 {
-  font-weight: 800;
-  line-height: 1.05;
+  font-weight: 900;
+  line-height: 1.08;
   letter-spacing: -0.01em;
-  font-variation-settings: 'wdth' 70;
+  font-variation-settings: 'wdth' 112;
   margin: 0 0 0.5em;
 }
 
 h1 {
-  font-size: var(--t-xl);
+  font-size: clamp(2rem, 4.6vw, 3.1rem);
 }
 
 h2 {
-  font-size: var(--t-lg);
-  margin-top: 2em;
-  padding-left: 14px;
-  border-left: 6px solid var(--chalk);
+  position: relative;
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  margin: 2.6em 0 0.7em;
+  padding-top: 20px;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 6px;
+  background: var(--chalk);
 }
 
 h3 {
   font-size: var(--t-md);
   margin-top: 1.6em;
-  font-variation-settings: 'wdth' 85;
-  font-weight: 700;
+  font-variation-settings: 'wdth' 100;
+  font-weight: 800;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chalk);
+}
+
+.pick-title {
+  margin-top: 0;
+  padding-top: 0;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+}
+
+.pick-title::before {
+  display: none;
 }
 
 p,

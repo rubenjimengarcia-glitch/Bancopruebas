@@ -187,11 +187,6 @@ const jsonLd = [
       </p>
     </header>
 
-    <p class="note">
-      Cómo hemos hecho esta comparativa: los datos salen de las fichas de los fabricantes, de
-      tiendas y de los anuncios de Amazon.es, y ninguno de estos cinco modelos está probado por
-      nosotros. <a href="/metodo/">Así trabajamos</a>.
-    </p>
 
     <div class="prose">
       <h2>Qué hace cada uno</h2>
@@ -233,7 +228,6 @@ const jsonLd = [
             <th scope="col">Motor</th>
             <th scope="col">Peso sin batería</th>
             <th scope="col">Qué incluye</th>
-            <th scope="col">Probado</th>
           </tr>
         </thead>
         <tbody>
@@ -246,7 +240,6 @@ const jsonLd = [
                 <td>{p.specs.motor}</td>
                 <td>{p.specs.weight}</td>
                 <td>{p.specs.kit}</td>
-                <td>{p.tested ? 'Sí' : 'No, analizado'}</td>
               </tr>
             ))
           }
@@ -262,12 +255,10 @@ const jsonLd = [
     {
       products.map((p) => (
         <section class="pick">
-          <h2>
-            {p.award}: {p.name}
-          </h2>
+          <p class="kicker">{p.award}</p>
+          <h2 class="pick-title">{p.name}</h2>
           <p class="meta">
-            {p.platform}. {p.tested ? 'Probado por nosotros.' : 'Analizado por ficha técnica y anuncio de Amazon.'}
-            {' '}Versión enlazada: {p.kitLabel}.
+            {p.platform}. Versión enlazada: {p.kitLabel}.
           </p>
           <div class="prose">
             <p>{p.why}</p>
@@ -344,9 +335,9 @@ const jsonLd = [
     max-width: 760px;
   }
   .head h1 {
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    font-variation-settings: 'wdth' 64;
-    line-height: 0.98;
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    font-variation-settings: 'wdth' 112;
+    line-height: 1.05;
   }
   .head .lede {
     margin-top: 20px;

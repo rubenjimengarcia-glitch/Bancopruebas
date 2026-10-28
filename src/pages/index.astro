@@ -48,41 +48,32 @@ const jsonLd = {
 
 <Base title={SITE.name} jsonLd={jsonLd}>
   <div class="band">
-  <section class="hero wrap">
-    <div class="copy">
-      <h1>Elige una batería. Acierta con todo lo que compres después.</h1>
-      <p class="lede">
-        Guías y comparativas de herramientas eléctricas a batería para casa, ordenadas por
-        plataforma: Bosch, Makita, Einhell, Ryobi y DeWalt.
-      </p>
-      <svg class="art" viewBox="0 0 320 170" role="img" aria-label="Ilustración de un taladro a batería (dibujo genérico, no es un producto concreto)">
-        <rect x="14" y="160" width="292" height="5" rx="2.5" fill="#ffffff" opacity="0.35" />
-        <rect x="40" y="30" width="176" height="52" rx="16" fill="#ffffff" />
-        <rect x="216" y="42" width="38" height="28" rx="3" fill="#14161a" />
-        <rect x="254" y="52" width="54" height="8" rx="2" fill="#14161a" />
-        <rect x="84" y="78" width="50" height="62" rx="9" fill="#ffffff" />
-        <rect x="140" y="82" width="10" height="22" rx="3" fill="#14161a" />
-        <rect x="66" y="138" width="86" height="20" rx="4" fill="#14161a" />
-        <rect x="60" y="44" width="110" height="10" rx="5" fill="#d0101c" />
-      </svg>
-    </div>
-    <PlatformPicker />
-  </section>
+    <section class="hero wrap">
+      <div class="copy">
+        <p class="eyebrow">Herramientas a batería para casa</p>
+        <h1>Elige una batería. Acierta con todo lo que compres después.</h1>
+        <p class="lede">
+          Guías y comparativas de herramientas eléctricas a batería para casa, ordenadas por
+          plataforma: Bosch, Makita, Einhell, Ryobi y DeWalt.
+        </p>
+        <a class="hero-cta" href="/plataformas-bateria-18v/">Elegir mi plataforma</a>
+      </div>
+      <div class="picker">
+        <PlatformPicker />
+      </div>
+    </section>
   </div>
 
-  <section class="wrap start" aria-labelledby="start-h">
+  <section class="wrap start" id="guias" aria-labelledby="start-h">
     <h2 id="start-h">Por dónde empezar</h2>
-    <ul class="guides">
+    <ul class="cards">
       {
-        guides.map((g) => (
-          <li>
-            {g.ready ? (
-              <a href={g.href} class="g-title">{g.title}</a>
-            ) : (
-              <span class="g-title muted">{g.title}</span>
-            )}
-            <span class="g-text">{g.text}</span>
-            <span class="soon">{g.ready ? 'Publicada' : 'En preparación'}</span>
+        guides.map((g, i) => (
+          <li class={g.ready ? 'card' : 'card soon'}>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{g.ready ? <a href={g.href}>{g.title}</a> : g.title}</h3>
+            <p>{g.text}</p>
+            <span class="state">{g.ready ? 'Leer guía →' : 'En preparación'}</span>
           </li>
         ))
       }
@@ -97,88 +88,137 @@ const jsonLd = {
         que ya tienes, no por quién paga más.
       </p>
       <p>
-        <strong>Decimos qué hemos probado.</strong> Cada comparativa indica qué herramientas hemos usado
-        nosotros y cuáles analizamos por ficha técnica y opiniones de compradores.
+        <strong>Datos con fuente.</strong> Cada cifra sale de la ficha del fabricante o del anuncio de
+        la tienda, y la fecha de consulta figura en cada guía.
       </p>
       <p>
         <strong>Sin precios caducados.</strong> Los precios cambian a diario; te llevamos a la tienda para
         que veas el actual.
       </p>
     </div>
-    <p class="meta"><a href="/metodo/">Así trabajamos en detalle</a></p>
   </section>
 </Base>
 
 <style>
   .band {
-    background: var(--chalk);
-    padding-bottom: clamp(28px, 5vw, 56px);
-    border-bottom: 8px solid var(--graphite);
-  }
-  .band .copy {
-    color: #ffffff;
-  }
-  .band .lede {
-    color: #ffffff;
-    border: 0;
-  }
-  .art {
-    width: min(420px, 100%);
-    margin-top: 12px;
+    background: linear-gradient(105deg, var(--chalk) 0 55%, var(--panel) 55% 100%);
   }
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: clamp(28px, 5vw, 64px);
-    align-items: end;
-    padding-top: clamp(40px, 7vw, 88px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+    padding-top: clamp(40px, 6vw, 80px);
+    padding-bottom: clamp(40px, 6vw, 80px);
+  }
+  .copy {
+    color: #ffffff;
+  }
+  .eyebrow {
+    margin: 0 0 14px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
   .hero h1 {
-    font-size: var(--t-hero);
-    font-variation-settings: 'wdth' 62;
-    font-weight: 850;
-    line-height: 0.95;
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.02;
     letter-spacing: -0.015em;
-    max-width: 12ch;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.5em;
     color: #ffffff;
+  }
+  .copy .lede {
+    color: #ffffff;
+    margin-bottom: 28px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: #ffffff;
+    color: var(--chalk);
+    font-weight: 800;
+    font-size: var(--t-sm);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1em 1.6em;
+    border-radius: 3px;
+  }
+  .hero-cta:hover {
+    background: #14161a;
+    color: #ffffff;
+  }
+  .picker {
+    box-shadow: 0 18px 40px rgba(20, 22, 26, 0.18);
+    border-radius: 6px;
   }
   .start,
   .how {
-    margin-top: clamp(56px, 8vw, 96px);
+    margin-top: clamp(40px, 6vw, 72px);
   }
-  .guides {
+  .cards {
     list-style: none;
     padding: 0;
     margin: 0;
-    border-top: 4px solid var(--chalk);
-    max-width: 880px;
-  }
-  .guides li {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) 9rem;
-    gap: 6px 24px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--rule);
-    align-items: baseline;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
   }
-  .g-title {
-    font-weight: 700;
-    font-size: var(--t-md);
-    font-variation-settings: 'wdth' 80;
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    border-top: 6px solid var(--chalk);
+    border-radius: 4px;
+    box-shadow: 0 4px 14px rgba(20, 22, 26, 0.06);
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 1.2rem;
     line-height: 1.2;
   }
-  .muted {
+  .card h3 a {
     color: var(--graphite);
+    text-decoration: none;
   }
-  .g-text {
+  .card h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .card:hover {
+    box-shadow: 0 10px 26px rgba(20, 22, 26, 0.14);
+  }
+  .card p {
+    margin: 0;
     color: var(--steel);
-  }
-  .soon {
     font-size: var(--t-sm);
-    font-weight: 700;
+  }
+  .num {
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
     color: var(--chalk);
-    white-space: nowrap;
+  }
+  .state {
+    margin-top: auto;
+    padding-top: 10px;
+    font-weight: 800;
+    font-size: var(--t-sm);
+    color: var(--chalk);
+  }
+  .card.soon {
+    background: var(--panel);
+    border-top-color: var(--peg);
+    box-shadow: none;
+  }
+  .card.soon .state {
+    color: var(--steel);
   }
   .how-grid {
     display: grid;
@@ -188,19 +228,20 @@ const jsonLd = {
   }
   .how-grid p {
     margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
   }
   .how-grid strong {
     display: block;
-    font-variation-settings: 'wdth' 80;
+    font-weight: 900;
     font-size: var(--t-md);
     margin-bottom: 4px;
   }
   @media (max-width: 880px) {
-    .hero {
-      grid-template-columns: 1fr;
-      align-items: start;
+    .band {
+      background: linear-gradient(180deg, var(--chalk) 0 62%, var(--panel) 62% 100%);
     }
-    .guides li {
+    .hero {
       grid-template-columns: 1fr;
     }
     .how-grid {

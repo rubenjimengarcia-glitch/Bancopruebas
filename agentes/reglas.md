@@ -1,7 +1,9 @@
 # Reglas que ningún agente puede saltarse
 
-1. **Nada de pruebas inventadas.** Nunca "lo hemos probado", "en nuestras pruebas" ni fotos de pruebas. Cada modelo
-   indica si está probado o analizado; por ahora todos son "analizado".
+1. **Nada de pruebas inventadas.** Nunca "lo hemos probado", "en nuestras pruebas" ni fotos de pruebas, salvo que
+   la prueba sea real. Decisión de Rubén (2026-10-28): las guías no llevan avisos ni columnas de "no probado"; la
+   explicación de que los modelos se analizan por fichas, anuncios y opiniones vive solo en `/metodo/` (enlace en el
+   pie). Las páginas se redactan con datos "según el anuncio/ficha" y sin afirmar pruebas.
 2. **Un dato, una fuente.** Cada cifra importante está en el dossier con su enlace abierto de verdad. Si no se puede
    comprobar, no se publica ni se redondea.
 3. **Cero precios, valoraciones o reseñas de Amazon** en la web, ni citas textuales de reseñas.

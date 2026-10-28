@@ -36,10 +36,11 @@ Rubén decidió que se publique automáticamente: la puerta de calidad es el Ver
    en `backlog.md`. Envía a Rubén un resumen de tres líneas con SendUserMessage.
 
 ## Imágenes de producto
-Rubén quiere imágenes de producto. Reglas: nunca imágenes copiadas de páginas de Amazon, nunca imágenes generadas
-presentadas como fotos reales. Hasta que Amazon Afiliados esté aprobado, las guías se publican **sin foto de
-producto**. Con el alta aprobada: usar el código de imagen de SiteStripe de Amazon Afiliados (con la sesión de Chrome de
-Rubén). Si algún fabricante ofrece imágenes de prensa con licencia clara, se pueden usar con crédito.
+Decisión de Rubén (2026-10-28): se pueden usar imágenes de internet, con acuerdo con webs como mibricolaje.com
+(catálogo: https://mibricolaje.com/75-h-electrica-baterias-y-cargadores). Reglas: nunca imágenes copiadas de páginas
+de Amazon; la imagen debe corresponder al modelo exacto de la guía (no generadas ni de otro modelo presentadas como
+ese); poner el nombre del modelo en el `alt`; guardarlas en `public/img/` (no enlazar en caliente). Si no hay imagen
+del modelo exacto, la guía se publica sin foto.
 
 ## Otros agentes (se activan más adelante)
 Distribución, Analista y la revisión trimestral de guías se describen en el documento del plan. Hasta que se activen,
