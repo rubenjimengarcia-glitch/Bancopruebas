@@ -47,6 +47,7 @@ const jsonLd = {
 ---
 
 <Base title={SITE.name} jsonLd={jsonLd}>
+  <div class="band">
   <section class="hero wrap">
     <div class="copy">
       <h1>Elige una batería. Acierta con todo lo que compres después.</h1>
@@ -54,9 +55,20 @@ const jsonLd = {
         Guías y comparativas de herramientas eléctricas a batería para casa, ordenadas por
         plataforma: Bosch, Makita, Einhell, Ryobi y DeWalt.
       </p>
+      <svg class="art" viewBox="0 0 320 170" role="img" aria-label="Ilustración de un taladro a batería (dibujo genérico, no es un producto concreto)">
+        <rect x="14" y="160" width="292" height="5" rx="2.5" fill="#ffffff" opacity="0.35" />
+        <rect x="40" y="30" width="176" height="52" rx="16" fill="#ffffff" />
+        <rect x="216" y="42" width="38" height="28" rx="3" fill="#14161a" />
+        <rect x="254" y="52" width="54" height="8" rx="2" fill="#14161a" />
+        <rect x="84" y="78" width="50" height="62" rx="9" fill="#ffffff" />
+        <rect x="140" y="82" width="10" height="22" rx="3" fill="#14161a" />
+        <rect x="66" y="138" width="86" height="20" rx="4" fill="#14161a" />
+        <rect x="60" y="44" width="110" height="10" rx="5" fill="#d0101c" />
+      </svg>
     </div>
     <PlatformPicker />
   </section>
+  </div>
 
   <section class="wrap start" aria-labelledby="start-h">
     <h2 id="start-h">Por dónde empezar</h2>
@@ -98,6 +110,22 @@ const jsonLd = {
 </Base>
 
 <style>
+  .band {
+    background: var(--chalk);
+    padding-bottom: clamp(28px, 5vw, 56px);
+    border-bottom: 8px solid var(--graphite);
+  }
+  .band .copy {
+    color: #ffffff;
+  }
+  .band .lede {
+    color: #ffffff;
+    border: 0;
+  }
+  .art {
+    width: min(420px, 100%);
+    margin-top: 12px;
+  }
   .hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
@@ -113,6 +141,7 @@ const jsonLd = {
     letter-spacing: -0.015em;
     max-width: 12ch;
     margin-bottom: 0.4em;
+    color: #ffffff;
   }
   .start,
   .how {
@@ -122,7 +151,7 @@ const jsonLd = {
     list-style: none;
     padding: 0;
     margin: 0;
-    border-top: 2px solid var(--graphite);
+    border-top: 4px solid var(--chalk);
     max-width: 880px;
   }
   .guides li {
@@ -147,7 +176,8 @@ const jsonLd = {
   }
   .soon {
     font-size: var(--t-sm);
-    color: var(--steel);
+    font-weight: 700;
+    color: var(--chalk);
     white-space: nowrap;
   }
   .how-grid {

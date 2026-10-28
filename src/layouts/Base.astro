@@ -34,8 +34,7 @@ const schema = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="theme-color" content="#e6eaee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14181d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#d0101c" />
     {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>

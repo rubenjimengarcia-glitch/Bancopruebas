@@ -1,16 +1,17 @@
 @import '@fontsource-variable/archivo/standard.css';
 
-/* Tokens: acero galvanizado, grafito y el azul del tiralíneas de tiza */
+/* Tokens: blanco, negro tinta y rojo de marca */
 :root {
-  --zinc: #e6eaee;
+  --zinc: #ffffff;
   --sheet: #ffffff;
-  --graphite: #1d232a;
-  --steel: #56616c;
-  --rule: #c5ccd3;
-  --chalk: #1f4fd1;
+  --graphite: #14161a;
+  --steel: #4b5058;
+  --rule: #e2e4e7;
+  --chalk: #d0101c;
   --chalk-ink: #ffffff;
-  --peg: #b7c0c9;
-  --focus: #1f4fd1;
+  --peg: #f1d4d6;
+  --focus: #d0101c;
+  --panel: #f6f6f7;
 
   --font: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
   --measure: 66ch;
@@ -26,22 +27,6 @@
 
   color-scheme: light;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --zinc: #14181d;
-    --sheet: #1c2229;
-    --graphite: #e8ecf0;
-    --steel: #a3adb7;
-    --rule: #333c46;
-    --chalk: #7ea2ff;
-    --chalk-ink: #0d1420;
-    --peg: #2c343d;
-    --focus: #7ea2ff;
-    color-scheme: dark;
-  }
-}
-
 *,
 *::before,
 *::after {
@@ -77,6 +62,11 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
+.site-header :focus-visible,
+.band :focus-visible {
+  outline-color: #ffffff;
+}
+
 :focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
@@ -100,6 +90,8 @@ h1 {
 h2 {
   font-size: var(--t-lg);
   margin-top: 2em;
+  padding-left: 14px;
+  border-left: 6px solid var(--chalk);
 }
 
 h3 {
@@ -174,12 +166,19 @@ td {
 th {
   font-weight: 700;
   font-variation-settings: 'wdth' 85;
-  border-bottom: 2px solid var(--graphite);
+  border-bottom: 2px solid var(--chalk);
+}
+
+thead th {
+  background: var(--panel);
 }
 
 /* Botones */
 .btn {
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: var(--t-sm);
   background: var(--chalk);
   color: var(--chalk-ink);
   font-weight: 700;
@@ -190,11 +189,14 @@ th {
 }
 
 .btn:hover {
-  filter: brightness(1.08);
+  background: #a50d17;
+  filter: none;
 }
 
 .note {
-  border-left: 3px solid var(--chalk);
+  background: var(--panel);
+  border-left: 4px solid var(--chalk);
+  padding-right: 1em !important;
   padding: 0.6em 0 0.6em 1em;
   color: var(--steel);
   font-size: var(--t-sm);
