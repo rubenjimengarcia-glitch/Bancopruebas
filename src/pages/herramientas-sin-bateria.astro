@@ -1,0 +1,350 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-10-28';
+const updatedLabel = '28 de octubre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  kitLabel: string;
+  tested: boolean;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  specs: { par: string; motor: string; chuck: string; entrega: string };
+}
+
+// Datos tomados de los anuncios de Amazon.es abiertos el 28/10/2026
+// (ver agentes/dossiers/herramientas-sin-bateria.md). Ninguno está probado por nosotros.
+const products: Product[] = [
+  {
+    award: 'Cuerpo con maletín TSTAK y 70 Nm',
+    name: 'DeWalt DCD796NT-XJ',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B01C6PNSR8',
+    kitLabel: 'Solo herramienta con maletín TSTAK; no incluye batería ni cargador',
+    tested: false,
+    why: 'El título del anuncio indica 70 Nm, motor sin escobillas y maletín TSTAK, y dice expresamente que no incluye batería ni cargador. El anuncio menciona también luz de trabajo LED.',
+    pros: ['70 Nm según el título del anuncio', 'Motor sin escobillas', 'Incluye maletín TSTAK'],
+    cons: [
+      'No incluye batería ni cargador',
+      'El 28/10/2026 lo vendía un vendedor externo, no Amazon',
+    ],
+    notFor: 'No es para ti si todavía no tienes una batería compatible con este modelo.',
+    specs: { par: '70 Nm', motor: 'Sin escobillas', chuck: 'Hasta 13 mm', entrega: 'Maletín TSTAK' },
+  },
+  {
+    award: 'Cuerpo con bolsa de transporte y 24 ajustes de par',
+    name: 'Ryobi RPD18BL1-0',
+    platform: 'Ryobi ONE+ 18 V',
+    asin: 'B0CRZ36DSL',
+    kitLabel: 'Solo herramienta en bolsa de transporte; sin batería',
+    tested: false,
+    why: 'El anuncio indica 54 Nm, portabrocas metálico de 13 mm, motor sin escobillas y 24 ajustes de par. Se entrega en bolsa, sin batería. El anuncio dice que la batería ONE+ sirve para más de 200 herramientas.',
+    pros: ['24 ajustes de par', 'Portabrocas metálico de 13 mm', 'Motor sin escobillas'],
+    cons: [
+      'Sin batería (el anuncio no menciona el cargador: compruébalo)',
+      'Se entrega en bolsa, no en maletín rígido',
+      'El 28/10/2026 la ficha no mostraba "En stock"; la entrega estimada era el 1 de noviembre',
+    ],
+    notFor: 'No es para ti si no tienes ya baterías ONE+.',
+    specs: { par: '54 Nm', motor: 'Sin escobillas', chuck: '13 mm', entrega: 'Bolsa' },
+  },
+  {
+    award: 'Cuerpo con engranaje metálico y 60 Nm',
+    name: 'Einhell TE-CD 18 Li Brushless Solo',
+    platform: 'Einhell Power X-Change',
+    asin: 'B01LZJ6UVC',
+    kitLabel: 'Solo herramienta; sin batería ni cargador',
+    tested: false,
+    why: 'El anuncio indica 60 Nm, motor sin escobillas, mandril metálico de 13 mm, engranaje de dos velocidades y tres funciones (atornillar, perforar y perforar con percusión en mampostería). El anuncio dice que la batería Power X-Change también se puede usar en otros equipos.',
+    pros: [
+      'Tres funciones, incluida percusión en mampostería',
+      'Engranaje de 2 velocidades',
+      'Bloqueo automático del husillo',
+    ],
+    cons: ['No incluye batería ni cargador', 'No hemos recogido qué accesorios incluye en la entrega: compruébalo en el anuncio'],
+    notFor: 'No es para ti si no tienes ya baterías Power X-Change.',
+    specs: { par: '60 Nm', motor: 'Sin escobillas', chuck: '13 mm', entrega: 'No recogido' },
+  },
+  {
+    award: 'Cuerpo con 55 Nm y portabrocas Röhm',
+    name: 'Bosch Professional GSB 18V-55',
+    platform: 'Bosch 18 V',
+    asin: 'B0822295DF',
+    kitLabel: 'El anuncio indica "caja de cartón" como contenido; confirma que no incluye batería',
+    tested: false,
+    why: 'El anuncio indica 55 Nm y 1.800 rpm, portabrocas metálico Röhm de 13 mm y motor sin escobillas. Como contenido solo menciona una caja de cartón.',
+    pros: ['55 Nm y 1.800 rpm según el anuncio', 'Portabrocas metálico de 13 mm', 'Motor sin escobillas'],
+    cons: [
+      'El anuncio no dice de forma expresa que no incluya batería: confírmalo antes de comprar',
+      'El 28/10/2026 lo vendía un vendedor externo, no Amazon',
+    ],
+    notFor: 'No es para ti si no tienes ya baterías de 18 V que encajen con este modelo.',
+    specs: { par: '55 Nm', motor: 'Sin escobillas', chuck: '13 mm', entrega: 'Caja de cartón' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Qué significa "solo cuerpo" o "solo herramienta"?',
+    a: 'Que se vende la herramienta sin batería y sin cargador. En los anuncios de DeWalt, Einhell y Ryobi consta que no incluyen batería; en el Ryobi el anuncio no menciona el cargador y en el Bosch solo indica una caja de cartón como contenido. Confirma siempre qué trae la caja.',
+  },
+  {
+    q: '¿Sirve cualquier batería de 18 V?',
+    a: 'No lo damos por hecho. Mira en la ficha de cada marca qué baterías admite cada herramienta y consulta el manual del fabricante.',
+  },
+  {
+    q: '¿Y si todavía no tengo ninguna batería?',
+    a: 'Entonces estos modelos no te sirven tal cual: tendrías que comprar batería y cargador aparte. Mira la guía de regalos con taladros en kit o la de plataformas de 18 V.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Herramientas sin batería: cuándo compensan (4 taladros, según anuncio)',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Herramientas sin batería: cuándo compensan"
+  description="Qué es comprar una herramienta solo cuerpo, sin batería ni cargador, y cuatro taladros a batería: DeWalt, Ryobi, Einhell y Bosch, analizados por anuncio. Confirma siempre qué incluye la caja."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Herramientas sin batería: cuándo compensan</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Comprar solo el cuerpo tiene sentido si ya tienes una batería y un cargador que encajen con
+        la herramienta. Si no los tienes, el modelo "solo herramienta" no funciona hasta que los
+        compres aparte. Aquí tienes cuatro taladros: en tres el anuncio indica que no incluyen batería y en el Bosch solo indica una caja de cartón como contenido; confírmalo antes de comprar.
+      </p>
+    </header>
+
+    <p class="note">
+      Cómo hemos hecho esta guía: los datos salen de los anuncios de Amazon.es abiertos el
+      {updatedLabel}, y ninguno de estos cuatro modelos está probado por nosotros.
+      <a href="/metodo/">Así trabajamos</a>.
+    </p>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Plataforma</th>
+            <th scope="col">Par</th>
+            <th scope="col">Motor</th>
+            <th scope="col">Mandril</th>
+            <th scope="col">Se entrega en</th>
+            <th scope="col">Probado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.platform}</td>
+                <td>{p.specs.par}</td>
+                <td>{p.specs.motor}</td>
+                <td>{p.specs.chuck}</td>
+                <td>{p.specs.entrega}</td>
+                <td>{p.tested ? 'Sí' : 'No, analizado'}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">Datos según los anuncios de Amazon.es del {updatedLabel}.</p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <h2>
+            {p.award}: {p.name}
+          </h2>
+          <p class="meta">
+            {p.platform}. {p.tested ? 'Probado por nosotros.' : 'Analizado por anuncio de Amazon.'}
+            {' '}Versión enlazada: {p.kitLabel}.
+          </p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo decidir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Mira si ya tienes baterías y cargador.</strong> Si usas una marca, elige la
+          herramienta de esa marca. Si no tienes ninguna, la
+          <a href="/plataformas-bateria-18v/">guía de plataformas de batería de 18 V</a> te ayuda a
+          elegir.
+        </li>
+        <li>
+          <strong>Confirma qué baterías admite la herramienta</strong> en la ficha del fabricante y
+          en su manual.
+        </li>
+        <li>
+          <strong>Si prefieres comprar todo junto,</strong> mira los
+          <a href="/regalos-bricolaje-navidad/">taladros en kit con batería y cargador</a> o el
+          <a href="/taladro-percutor-bateria/">taladro percutor a batería</a>.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto, y que eliges la opción de
+        producto nuevo. El vendedor puede cambiar de un día para otro y no podemos asegurar cuál
+        será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en los anuncios de Amazon.es a fecha de {updatedLabel}. No incluye
+        precios porque cambian a diario. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-variation-settings: 'wdth' 64;
+    line-height: 0.98;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
