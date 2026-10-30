@@ -1,0 +1,376 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-10-30';
+const updatedLabel = '30 de octubre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  kitLabel: string;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  img?: { src: string; alt: string; credit: string };
+  specs: { herramientas: string; par: string; baterias: string; entrega: string };
+}
+
+// Datos tomados de los anuncios de Amazon.es abiertos el 30/10/2026
+// (ver agentes/dossiers/kit-combo-herramientas-bateria.md).
+const products: Product[] = [
+  {
+    award: 'Taladro e impacto con 2 baterías de 5 Ah',
+    name: 'DeWalt DCK266P2T-QW',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B07BJ6FSHS',
+    kitLabel: 'Taladro percutor DCD796, atornillador de impacto DCF887, 2 baterías de 5 Ah, cargador y maletín TSTAK',
+    why: 'El anuncio indica 70 Nm en el taladro (portabrocas metálico de 1,5 a 13 mm, 1,8 kg) y 205 Nm en el atornillador de impacto de 1/4" (1,5 kg). El kit trae dos baterías de 5,0 Ah, cargador multivoltaje, un clip magnético de puntas y maletín TSTAK.',
+    pros: ['70 Nm y 205 Nm según el anuncio', 'Baterías de 5,0 Ah', 'Maletín TSTAK incluido'],
+    cons: [
+      'Solo dos herramientas: taladro percutor y atornillador de impacto',
+      'No hemos recogido el tipo de motor de las herramientas: compruébalo en la ficha',
+    ],
+    notFor: 'No es para ti si necesitas también una amoladora o una sierra en el mismo kit.',
+    specs: { herramientas: 'Taladro + impacto', par: '70 Nm / 205 Nm', baterias: '2 × 5,0 Ah', entrega: 'Maletín TSTAK' },
+  },
+  {
+    award: 'Taladro e impacto con 24 posiciones de par',
+    name: 'Ryobi ONE+ Duo (taladro R18PD3 + impacto)',
+    platform: 'Ryobi ONE+ 18 V',
+    asin: 'B0CVM3TH8B',
+    kitLabel: 'Taladro percutor, atornillador de impacto, 2 baterías de 2,0 Ah y cargador',
+    why: 'El título del anuncio indica 50 Nm en el taladro y 220 Nm en el atornillador de impacto, con dos baterías de 2,0 Ah y cargador. El anuncio describe mandril autoserrante de 13 mm, dos velocidades mecánicas, función de percusión y 24 posiciones de par.',
+    pros: ['24 posiciones de par según el anuncio', 'Mandril autoserrante de 13 mm', '220 Nm en el atornillador de impacto según el título'],
+    cons: [
+      'Las baterías son de 2,0 Ah, las más pequeñas de los cuatro kits',
+      'No hemos recogido en qué se entrega (bolsa o maletín): compruébalo en el anuncio',
+      'No hemos recogido si el anuncio mostraba "En stock" el 30/10/2026',
+    ],
+    notFor: 'No es para ti si buscas baterías de más capacidad en el propio kit.',
+    specs: { herramientas: 'Taladro + impacto', par: '50 Nm / 220 Nm', baterias: '2 × 2,0 Ah', entrega: 'No recogido' },
+  },
+  {
+    award: 'Kit de 2 piezas con funda Makpac',
+    name: 'Makita DLX2131TJ',
+    platform: 'Makita LXT 18 V',
+    asin: 'B0846L1CTX',
+    kitLabel: 'Taladro DHP482Z, atornillador DTD152Z, 2 baterías de 5,0 Ah, cargador y funda Makpac',
+    why: 'El título del anuncio indica un kit de dos piezas (DHP482Z y DTD152Z) con dos baterías de 5,0 Ah, cargador y funda Makpac. El anuncio recoge 21 ajustes de par y portabrocas sin llave en el taladro, y vástago hexagonal de 1/4" en el atornillador.',
+    pros: ['Baterías de 5,0 Ah', '21 ajustes de par en el taladro según el anuncio', 'Se entrega en funda Makpac'],
+    cons: [
+      'No hemos recogido los pares en Nm: compruébalos en la ficha',
+      'El 30/10/2026 lo vendía un vendedor externo (Todotaladros), no Amazon',
+      'El anuncio avisa de que el taladro y el atornillador no son compatibles con baterías de la serie G',
+    ],
+    notFor: 'No es para ti si tienes baterías de la serie G de Makita.',
+    specs: { herramientas: 'Taladro + atornillador', par: 'No recogido', baterias: '2 × 5,0 Ah', entrega: 'Funda Makpac' },
+  },
+  {
+    award: 'Kit de 3 herramientas con 3 baterías',
+    name: 'Bosch Professional GSB 18V-45 + GBH 18V-22 + GWS 18V-8',
+    platform: 'Bosch Professional 18V System',
+    asin: 'B0F4DVYFFH',
+    kitLabel: 'Taladro percutor, martillo perforador, amoladora angular, 3 baterías de 4,0 Ah, cargador y maletín',
+    why: 'El anuncio indica un taladro percutor GSB 18V-45 de 45 Nm y 1.900 rpm, un martillo perforador GBH 18V-22 con extractor de polvo de clip y una amoladora angular GWS 18V-8, con tres baterías de 4,0 Ah, cargador GAL 18V-40 y maletín. El anuncio dice que baterías y cargadores son compatibles con el 18V System y con herramientas de la alianza AMPShare.',
+    pros: ['Tres herramientas distintas en un solo kit', 'Tres baterías de 4,0 Ah según el título', 'Incluye amoladora angular'],
+    cons: [
+      'No incluye atornillador de impacto',
+      'El anuncio indica 45 Nm de par (duro) máximo en el taladro; no se recoge el par del martillo ni de la amoladora',
+    ],
+    notFor: 'No es para ti si lo que buscas es sobre todo atornillar: aquí no hay atornillador de impacto.',
+    specs: { herramientas: 'Taladro + martillo + amoladora', par: '45 Nm (taladro)', baterias: '3 × 4,0 Ah', entrega: 'Maletín' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Qué es un kit combo?',
+    a: 'Según los anuncios de esta guía, cada kit agrupa varias herramientas con baterías y cargador. Mira en el anuncio qué trae cada uno.',
+  },
+  {
+    q: '¿Sirven las baterías de otras marcas?',
+    a: 'No lo damos por hecho. Mira en la ficha de cada marca qué baterías admite cada herramienta y consulta el manual del fabricante.',
+  },
+  {
+    q: '¿Compensa más un kit combo o comprar las herramientas sueltas?',
+    a: 'Esta guía no compara precios. Mira qué herramientas vas a usar de verdad y si ya tienes baterías: la guía de herramientas sin batería explica la otra opción.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Kit combo de herramientas a batería: cuáles valen la pena (4 kits, según anuncio)',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Kit combo de herramientas a batería: cuáles valen la pena"
+  description="Cuatro kits combo de herramientas a batería con baterías y cargador: DeWalt, Ryobi, Makita y Bosch, analizados por anuncio. Confirma siempre qué incluye la caja."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Kit combo de herramientas a batería: cuáles valen la pena</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Aquí tienes cuatro kits de Amazon.es analizados por su anuncio: DeWalt, Ryobi, Makita y
+        Bosch. Cada anuncio indica qué herramientas, baterías y cargador incluye. Veredicto: si
+        quieres taladro y atornillador con baterías de 5,0 Ah, mira DeWalt o Makita; si quieres tres
+        herramientas distintas, el Bosch.
+      </p>
+    </header>
+
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Herramientas</th>
+            <th scope="col">Par</th>
+            <th scope="col">Baterías</th>
+            <th scope="col">Se entrega en</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.specs.herramientas}</td>
+                <td>{p.specs.par}</td>
+                <td>{p.specs.baterias}</td>
+                <td>{p.specs.entrega}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">Datos según los anuncios de Amazon.es del {updatedLabel}. "No recogido" significa que no lo hemos podido confirmar en el anuncio.</p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <p class="kicker">{p.award}</p>
+          <h2 class="pick-title">{p.name}</h2>
+          <div class={p.img ? 'pick-top has-img' : 'pick-top'}>
+            <div>
+              <p class="meta">
+                {p.platform}. Versión enlazada: {p.kitLabel}.
+              </p>
+              <div class="prose">
+                <p>{p.why}</p>
+              </div>
+            </div>
+            {p.img && (
+              <figure class="shot">
+                <img src={p.img.src} alt={p.img.alt} loading="lazy" width="320" height="320" />
+                <figcaption>Imagen: {p.img.credit}</figcaption>
+              </figure>
+            )}
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo decidir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Mira qué herramientas vas a usar de verdad.</strong> Un kit con tres herramientas
+          no sirve si solo necesitas taladro y atornillador.
+        </li>
+        <li>
+          <strong>Mira las baterías.</strong> Confirma en el anuncio cuántas trae y de qué
+          capacidad, y qué baterías admite cada herramienta en su manual.
+        </li>
+        <li>
+          <strong>Si ya tienes baterías,</strong> mira la guía de
+          <a href="/herramientas-sin-bateria/">herramientas sin batería</a>. Si no, la
+          <a href="/plataformas-bateria-18v/">guía de plataformas de 18 V</a> te ayuda a elegir marca.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto, y que eliges la opción de
+        producto nuevo. El vendedor puede cambiar de un día para otro y no podemos asegurar cuál
+        será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en los anuncios de Amazon.es a fecha de {updatedLabel}. No incluye
+        precios. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .pick-top.has-img {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 24px;
+    align-items: start;
+  }
+  .shot {
+    margin: 0;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .shot figcaption {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: var(--steel);
+  }
+  @media (max-width: 720px) {
+    .pick-top.has-img {
+      grid-template-columns: 1fr;
+    }
+    .shot {
+      max-width: 280px;
+    }
+  }
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    font-variation-settings: 'wdth' 112;
+    line-height: 1.05;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
