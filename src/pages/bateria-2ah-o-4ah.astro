@@ -1,0 +1,324 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-11-04';
+const updatedLabel = '4 de noviembre de 2026';
+const researched = '2 de noviembre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  specs: { capacidad: string; peso: string; nota: string };
+}
+
+// Capacidad y peso de los anuncios de Amazon.es abiertos el 02/11/2026; ASIN y vendedor reverificados el 04/11/2026
+// (ver agentes/dossiers/bateria-2ah-o-4ah.md).
+const products: Product[] = [
+  {
+    award: 'Bosch, la de 2 Ah',
+    name: 'Bosch Professional GBA 18V 2.0Ah',
+    platform: 'Bosch Professional 18V System',
+    asin: 'B00FAMADXW',
+    why: 'El anuncio indica 2.000 mAh y 340 g, y la presenta como la batería de 2,0 Ah más ligera de la clase 18 V. Menciona la tecnología COOLPACK 1.0 y compatibilidad con herramientas Bosch Professional del mismo voltaje.',
+    pros: ['340 g según el anuncio', 'El anuncio la presenta como la de 2,0 Ah más ligera de su clase'],
+    cons: [
+      'Capacidad de 2.000 mAh, la mitad que la Bosch de 4,0 Ah',
+      'El 04/11/2026 la vendía un vendedor externo (Laboutiquebrico), no Amazon',
+    ],
+    notFor: 'No es para ti si quieres la mayor capacidad posible en una sola batería.',
+    specs: { capacidad: '2,0 Ah (2.000 mAh)', peso: '340 g', nota: 'Vendedor externo' },
+  },
+  {
+    award: 'Bosch, la de 4 Ah',
+    name: 'Bosch Professional GBA 18V 4.0Ah',
+    platform: 'Bosch Professional 18V System',
+    asin: 'B00ARAUS3M',
+    why: 'El anuncio indica 4.000 mAh y 400 g, y afirma que ofrece un 100 % más de autonomía que el modelo de 2,0 Ah. Menciona COOLPACK 1.0 y la compatibilidad con el 18V System y con herramientas de la alianza AMPShare.',
+    pros: ['El anuncio afirma un 100 % más de autonomía que la de 2,0 Ah', '4.000 mAh'],
+    cons: [
+      '400 g según el anuncio: 60 g más que la de 2,0 Ah de Bosch',
+      'El 04/11/2026 la oferta visible era de segunda mano gestionada por Amazon: busca la opción de producto nuevo',
+    ],
+    notFor: 'No es para ti si priorizas el menor peso posible.',
+    specs: { capacidad: '4,0 Ah (4.000 mAh)', peso: '400 g', nota: 'Oferta de segunda mano de Amazon' },
+  },
+  {
+    award: 'DeWalt, la de 2 Ah',
+    name: 'DeWalt XR 18V 2,0 Ah DCB183-XJ',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B00EQCFYWM',
+    why: 'El anuncio describe una batería XR de 2,0 Ah con indicador de carga de 3 LED y protecciones integradas contra sobrecalentamiento, sobrecarga y descarga profunda, y la plantea para aplicaciones más ligeras.',
+    pros: ['Indicador de carga de 3 LED según el anuncio', 'Protecciones integradas según el anuncio'],
+    cons: [
+      'El peso no figura de forma fiable en el anuncio: compruébalo en la ficha',
+      'Es la de menor capacidad de la plataforma DeWalt de esta guía',
+    ],
+    notFor: 'No es para ti si quieres la mayor capacidad posible en una sola batería.',
+    specs: { capacidad: '2,0 Ah', peso: 'No recogido', nota: 'No recogido' },
+  },
+  {
+    award: 'DeWalt, la de 4 Ah',
+    name: 'DeWalt XR 18V 4Ah DCB182-XJ',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B008LAFV32',
+    why: 'El anuncio indica que ofrece más potencia sin aumentar el tamaño ni el peso respecto al paquete de 3 Ah, con protecciones contra sobrecalentamiento, sobrecarga y descarga profunda.',
+    pros: ['4 Ah', 'Protecciones integradas según el anuncio'],
+    cons: [
+      'El peso no figura de forma fiable en el anuncio: compruébalo en la ficha',
+      'El anuncio la compara con la de 3 Ah, no con la de 2 Ah',
+    ],
+    notFor: 'No es para ti si quieres saber su peso exacto antes de comprar: no lo hemos podido confirmar.',
+    specs: { capacidad: '4 Ah', peso: 'No recogido', nota: 'No recogido' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Qué significa Ah en una batería?',
+    a: 'Es la capacidad que indica el anuncio. Los anuncios de esta guía dan 2,0 Ah (2.000 mAh) y 4,0 Ah (4.000 mAh) en Bosch, y 2,0 Ah y 4 Ah en DeWalt.',
+  },
+  {
+    q: '¿Sirve una batería de otra marca?',
+    a: 'No lo damos por hecho. Mira en el manual de tu herramienta qué baterías admite y elige una de tu plataforma. El anuncio de Bosch cita la alianza AMPShare, pero compruébalo en la ficha.',
+  },
+  {
+    q: '¿Cuántos minutos dura cada una?',
+    a: 'Esta guía no lo indica porque los anuncios no dan minutos de uso. El anuncio de Bosch afirma un 100 % más de autonomía en la de 4,0 Ah frente a la de 2,0 Ah.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Batería de 2 Ah o de 4 Ah: cuál comprar (Bosch y DeWalt, según anuncio)',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Batería de 2 Ah o de 4 Ah: cuál comprar"
+  description="Baterías de 18 V de 2 Ah y de 4 Ah de Bosch y DeWalt, comparadas por sus anuncios: capacidad, peso y qué dice cada ficha."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Batería de 2 Ah o de 4 Ah: cuál comprar</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Aquí tienes cuatro baterías de 18 V de Amazon.es analizadas por su anuncio: la de 2 Ah y la
+        de 4 Ah de Bosch y de DeWalt. Veredicto: en Bosch, la de 2 Ah pesa 340 g y la de 4 Ah, 400 g
+        según los anuncios (60 g más), y la de 4 Ah tiene el doble de capacidad (4.000 mAh frente a
+        2.000 mAh). En DeWalt no hay peso fiable en los anuncios. Elige según si priorizas el peso o
+        la capacidad, y siempre de tu plataforma.
+      </p>
+    </header>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Capacidad</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Vendedor el 04/11/2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.specs.capacidad}</td>
+                <td>{p.specs.peso}</td>
+                <td>{p.specs.nota}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">Datos de capacidad y peso según los anuncios de Amazon.es del {researched}; ASIN y vendedor, comprobados el {updatedLabel}. "No recogido" significa que no lo hemos podido confirmar en el anuncio.</p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <p class="kicker">{p.award}</p>
+          <h2 class="pick-title">{p.name}</h2>
+          <p class="meta">{p.platform}.</p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo decidir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Mira tu plataforma.</strong> Elige una batería que admita tu herramienta según su
+          manual. Si aún no tienes, la <a href="/plataformas-bateria-18v/">guía de plataformas de 18 V</a>
+          te ayuda a elegir marca.
+        </li>
+        <li>
+          <strong>Decide entre peso y capacidad.</strong> En Bosch, la de 4,0 Ah pesa 60 g más que
+          la de 2,0 Ah según los anuncios y tiene el doble de capacidad.
+        </li>
+        <li>
+          <strong>Si compras la herramienta sin batería,</strong> mira la guía de
+          <a href="/herramientas-sin-bateria/">herramientas sin batería</a> o la de
+          <a href="/kit-combo-herramientas-bateria/">kits combo</a>.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto, y que eliges la opción de
+        producto nuevo. El vendedor puede cambiar de un día para otro y no podemos asegurar cuál
+        será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en los anuncios de Amazon.es del {researched}; los ASIN y el vendedor se comprobaron el {updatedLabel}. No incluye
+        precios. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    font-variation-settings: 'wdth' 112;
+    line-height: 1.05;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

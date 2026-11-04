@@ -35,3 +35,9 @@ No consultado en esta ejecución (guía basada solo en fichas de amazon.es). Sin
 
 ## Fuentes abiertas
 - https://www.amazon.es/dp/B00FAMADXW, B00ARAUS3M, B00EQCFYWM, B008LAFV32 (abiertas en Chrome el 2026-11-02)
+
+## Reverificación 2026-11-04 (Chrome, amazon.es)
+- B00FAMADXW: título coincide; En stock; vendedor Laboutiquebrico (tercero).
+- B00ARAUS3M: título coincide; En stock; hoy figura "Vendido por Amazon Segunda mano y gestionado por Amazon" (oferta de segunda mano; cambió respecto al 02/11).
+- B00EQCFYWM: título coincide; En stock; vendedor no recogido hoy.
+- B008LAFV32: título coincide; En stock; vendedor no recogido hoy.
