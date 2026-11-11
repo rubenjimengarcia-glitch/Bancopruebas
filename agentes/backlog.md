@@ -11,7 +11,7 @@ Estados: `pendiente`, `publicada`, `bloqueada`. Una guía por ejecución, en est
 | 3 | herramientas-sin-bateria | Herramientas sin batería: cuándo compensan | publicada |
 | 4 | kit-combo-herramientas-bateria | Kit combo de herramientas a batería: cuáles valen la pena | publicada |
 | 5 | bateria-2ah-o-4ah | Batería de 2 Ah o de 4 Ah: cuál comprar | publicada |
-| 6 | amoladora-angular-bateria | Mejor amoladora angular a batería para casa | pendiente |
+| 6 | amoladora-angular-bateria | Mejor amoladora angular a batería para casa | publicada |
 | 7 | sierra-circular-bateria | Mejor sierra circular a batería para casa | pendiente |
 | 8 | sierra-de-calar-bateria | Mejor sierra de calar a batería | pendiente |
 | 9 | atornillador-electrico-pequeno | Mejor atornillador eléctrico pequeño para montar muebles | pendiente |

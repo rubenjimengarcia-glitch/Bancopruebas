@@ -1,0 +1,326 @@
+---
+import Base from '../layouts/Base.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import { AMAZON_DISCLOSURE, SITE } from '../config';
+
+const updated = '2026-11-11';
+const updatedLabel = '11 de noviembre de 2026';
+
+interface Product {
+  award: string;
+  name: string;
+  platform: string;
+  asin: string;
+  why: string;
+  pros: string[];
+  cons: string[];
+  notFor: string;
+  specs: { disco: string; rpm: string; peso: string; nota: string };
+}
+
+// Datos de los anuncios de Amazon.es abiertos el 11/11/2026 (ver agentes/dossiers/amoladora-angular-bateria.md).
+const products: Product[] = [
+  {
+    award: 'Bosch',
+    name: 'Bosch Professional GWS 18V-7',
+    platform: 'Bosch Professional 18V System',
+    asin: 'B08GKY3WVX',
+    why: 'El anuncio indica disco de 125 mm, 11.000 rpm, motor Brushless y 2,2 kg, y afirma que da la misma potencia que una amoladora con cable de 700 W. Se vende sin batería ni cargador.',
+    pros: ['11.000 rpm según el anuncio, el dato más alto de esta guía', '2,2 kg según el anuncio'],
+    cons: [
+      'Sin batería ni cargador: hay que comprarlos aparte',
+      'El 11/11/2026 la vendía un vendedor externo (Cotebrico-es), no Amazon',
+    ],
+    notFor: 'No es para ti si no tienes ya baterías Bosch Professional de 18 V y no quieres comprarlas.',
+    specs: { disco: '125 mm', rpm: '11.000', peso: '2,2 kg', nota: 'Vendedor externo' },
+  },
+  {
+    award: 'Makita',
+    name: 'Makita DGA504Z',
+    platform: 'Makita 18 V',
+    asin: 'B00S6OMGY0',
+    why: 'El anuncio la describe como miniamoladora de 18 V y 125 mm con motor BL, solo máquina, sin cargador ni batería. La ficha indica 8.500 rpm y 2,5 kg.',
+    pros: ['Motor BL según el anuncio', 'El 11/11/2026 la vendía y enviaba Amazon'],
+    cons: [
+      'Sin batería ni cargador',
+      '2,5 kg según la ficha: 300 g más que la Bosch GWS 18V-7',
+      '8.500 rpm según la ficha, menos que la Bosch',
+    ],
+    notFor: 'No es para ti si priorizas el menor peso o si no tienes baterías compatibles con ella.',
+    specs: { disco: '125 mm', rpm: '8.500', peso: '2,5 kg', nota: 'Amazon' },
+  },
+  {
+    award: 'DeWalt',
+    name: 'DeWalt DCG405N',
+    platform: 'DeWalt 18 V XR',
+    asin: 'B074V6QSNH',
+    why: 'El anuncio indica 125 mm, 18 V XR y motor sin escobillas; la ficha da 9.000 rpm. Incluye mango lateral, mango sin llave y llave, en caja de cartón, sin disco ni batería.',
+    pros: ['Motor sin escobillas según el anuncio', '9.000 rpm según la ficha', 'El 11/11/2026 la vendía y enviaba Amazon'],
+    cons: [
+      'Sin disco, batería ni cargador',
+      'La ficha muestra un peso dudoso y no lo publicamos: compruébalo antes de comprar',
+    ],
+    notFor: 'No es para ti si necesitas saber su peso exacto antes de comprar: no lo hemos podido confirmar.',
+    specs: { disco: '125 mm', rpm: '9.000', peso: 'No recogido', nota: 'Amazon' },
+  },
+  {
+    award: 'Metabo',
+    name: 'Metabo W 18 7-125',
+    platform: 'Metabo / alianza CAS 18 V',
+    asin: 'B0C37DJKZR',
+    why: 'El anuncio indica 8.500 rpm en vacío, disco de 125 mm, protección contra sobrecarga y arranque suave, y compatibilidad con baterías de 18 V y cargadores de la alianza CAS. Se vende sin batería ni cargador.',
+    pros: ['Protección contra sobrecarga y arranque suave según el anuncio', 'El 11/11/2026 la vendía y enviaba Amazon'],
+    cons: [
+      'Sin batería ni cargador',
+      'No hemos podido confirmar su peso',
+      '8.500 rpm en vacío, menos que la Bosch y la DeWalt según los anuncios',
+    ],
+    notFor: 'No es para ti si quieres saber su peso antes de comprar o no tienes baterías compatibles.',
+    specs: { disco: '125 mm', rpm: '8.500', peso: 'No recogido', nota: 'Amazon' },
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Necesito comprar la batería aparte?',
+    a: 'En las cuatro de esta guía, sí: los anuncios las describen sin batería y sin cargador. Elige una batería de la plataforma de tu herramienta según su manual.',
+  },
+  {
+    q: '¿Sirve una batería de otra marca?',
+    a: 'No lo damos por hecho. El anuncio de la Metabo cita la alianza CAS y el de la Bosch habla de baterías Bosch Professional de 18 V. Comprueba la compatibilidad en el manual o la ficha.',
+  },
+  {
+    q: '¿Qué disco necesito?',
+    a: 'Las cuatro indican un diámetro de disco de 125 mm. Mira en el manual del fabricante qué discos admite y su uso previsto.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Mejor amoladora angular a batería para casa (4 modelos, según anuncio)',
+    inLanguage: 'es-ES',
+    dateModified: updated,
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base
+  title="Mejor amoladora angular a batería para casa"
+  description="Cuatro amoladoras angulares de 125 mm a batería (Bosch, Makita, DeWalt y Metabo) comparadas por sus anuncios: rpm, peso cuando consta y qué incluye cada una."
+  jsonLd={jsonLd}
+>
+  <article class="wrap cmp">
+    <header class="head">
+      <h1>Mejor amoladora angular a batería para casa</h1>
+      <p class="meta">Por {SITE.author}. Actualizado el <time datetime={updated}>{updatedLabel}</time>.</p>
+      <p class="lede">
+        Aquí tienes cuatro amoladoras angulares de 125 mm de Amazon.es, analizadas por su anuncio:
+        Bosch, Makita, DeWalt y Metabo. Veredicto: según los anuncios, la Bosch GWS 18V-7 indica
+        11.000 rpm y 2,2 kg, frente a los 2,5 kg de la Makita. Las rpm no equivalen a potencia: la
+        potencia real no está confirmada en los anuncios. No elegimos una ganadora absoluta con estos
+        datos: las cuatro se venden sin batería ni cargador, así que elige según la plataforma de
+        baterías que ya tengas.
+      </p>
+    </header>
+
+    <section aria-labelledby="quick-h" class="quick">
+      <h2 id="quick-h">Veredicto rápido</h2>
+      <ul>
+        {
+          products.map((p) => (
+            <li>
+              <span class="award">{p.award}</span>
+              <span class="pname">{p.name}</span>
+              <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <h2>Comparativa</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Modelo</th>
+            <th scope="col">Disco</th>
+            <th scope="col">rpm</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Vendedor el 11/11/2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.specs.disco}</td>
+                <td>{p.specs.rpm}</td>
+                <td>{p.specs.peso}</td>
+                <td>{p.specs.nota}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">Datos según los anuncios de Amazon.es del {updatedLabel}, igual que el ASIN y el vendedor. "No recogido" significa que no lo hemos podido confirmar en el anuncio.</p>
+
+    {
+      products.map((p) => (
+        <section class="pick">
+          <p class="kicker">{p.award}</p>
+          <h2 class="pick-title">{p.name}</h2>
+          <p class="meta">{p.platform}.</p>
+          <div class="prose">
+            <p>{p.why}</p>
+          </div>
+          <div class="pc">
+            <div>
+              <h3>A favor</h3>
+              <ul>{p.pros.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div>
+              <h3>En contra</h3>
+              <ul>{p.cons.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+          <p class="notfor"><strong>Para quién NO es:</strong> {p.notFor}</p>
+          <AmazonButton asin={p.asin} label="Ver en Amazon.es" />
+        </section>
+      ))
+    }
+
+    <div class="prose">
+      <h2>Cómo decidir</h2>
+      <ol class="steps">
+        <li>
+          <strong>Mira tu plataforma.</strong> Las cuatro se venden sin batería: elige la marca de
+          la que ya tengas baterías. Si aún no tienes, la
+          <a href="/plataformas-bateria-18v/">guía de plataformas de 18 V</a> te ayuda a elegir.
+        </li>
+        <li>
+          <strong>Compara peso y rpm</strong> en la tabla, teniendo en cuenta que en DeWalt y Metabo
+          no hemos podido confirmar el peso.
+        </li>
+        <li>
+          <strong>Elige la batería.</strong> Mira la guía de
+          <a href="/bateria-2ah-o-4ah/">baterías de 2 Ah o 4 Ah</a> o la de
+          <a href="/kit-combo-herramientas-bateria/">kits combo</a>.
+        </li>
+      </ol>
+
+      <h2>Antes de comprar</h2>
+      <p>
+        Comprueba en la ficha de Amazon quién vende y envía el producto. El vendedor puede cambiar de un día para otro y no podemos asegurar cuál
+        será cuando entres.
+      </p>
+
+      <h2>Preguntas frecuentes</h2>
+      {
+        faqs.map((f) => (
+          <section class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </section>
+        ))
+      }
+
+      <p class="note">
+        Esta guía se basa en los anuncios de Amazon.es del {updatedLabel}; los ASIN y el vendedor se comprobaron ese día. No incluye
+        precios. {AMAZON_DISCLOSURE}
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .cmp {
+    padding-top: clamp(32px, 6vw, 64px);
+  }
+  .head {
+    max-width: 760px;
+  }
+  .head h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    font-variation-settings: 'wdth' 112;
+    line-height: 1.05;
+  }
+  .head .lede {
+    margin-top: 20px;
+    color: var(--graphite);
+    border-left: 4px solid var(--chalk);
+    padding-left: 16px;
+  }
+  .quick ul {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid var(--graphite);
+    max-width: 880px;
+  }
+  .quick li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 8px 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .award {
+    color: var(--steel);
+  }
+  .pname {
+    font-weight: 700;
+    font-variation-settings: 'wdth' 80;
+    font-size: var(--t-md);
+  }
+  .pick {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .pc h3 {
+    margin-top: 0.4em;
+  }
+  .notfor {
+    margin: 0 0 16px;
+    color: var(--graphite);
+  }
+  .steps {
+    padding-left: 1.4em;
+  }
+  .steps li::marker {
+    font-weight: 800;
+    color: var(--chalk);
+  }
+  .faq h3 {
+    font-size: 1.15rem;
+  }
+  @media (max-width: 720px) {
+    .quick li,
+    .pc {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
